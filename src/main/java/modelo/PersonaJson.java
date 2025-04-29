@@ -1,12 +1,10 @@
 package modelo;
 
+import com.google.gson.Gson;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import util.JsonManager;
-import com.google.gson.Gson;
 import javax.swing.JOptionPane;
-import vista.odontologo.odontologCrearOdontologo;
-import vista.usuario.usuarioCrearPaciente;
 
 /**
  * @author christian
@@ -20,10 +18,10 @@ public class PersonaJson {
     }
 
     public String validarUsuario(String username, String password) {
-        JSONArray usuarios = database.getJSONArray("personas");
-        
-        for (int i = 0; i < usuarios.length(); i++) {
-            JSONObject usuario = usuarios.getJSONObject(i);
+        JSONArray personas = database.getJSONArray("personas");
+
+        for (int i = 0; i < personas.length(); i++) {
+            JSONObject usuario = personas.getJSONObject(i);
             if (usuario.getString("username").equals(username)
                     && usuario.getString("password").equals(password)) {
                 String rol = usuario.getString("rol");
@@ -38,54 +36,57 @@ public class PersonaJson {
         usuarios.put(nuevoUsuario);
         JsonManager.saveJson(database);
     }
-    
-    public boolean crearPersona(JSONObject nuevoUsuario, String rol){
+
+    public boolean crearPersona(JSONObject datosPersona, String rol) {
         try {
-            if (this instanceof usuarioCrearPaciente) {
-                usuarioCrearPaciente vista = (usuarioCrearPaciente) this;
-                int nuevoId = JsonManager.generarNuevoId("personas");
+            int nuevoId = JsonManager.generarNuevoId("personas");
+            datosPersona.put("id", nuevoId); // Aseguramos que el ID esté en los datos
+
+            if (rol.equalsIgnoreCase("paciente")) {
                 Paciente paciente = new Paciente(
-                        nuevoId, // ID temporal, deberías obtenerlo del sistema o base de datos
-                        vista.getTxtNombre().getText(),
-                        vista.getTxtApellido().getText(),
-                        vista.getTxtIdentificacion().getText(),
-                        vista.getTxtFechaNacimiento().getText(),
-                        vista.getTxtDireccion().getText(),
-                        vista.getTxtTelefono().getText(),
-                        vista.getTxtCorreo().getText(),
+                        datosPersona.getInt("id"),
+                        datosPersona.getString("nombre"),
+                        datosPersona.getString("apellido"),
+                        datosPersona.getString("identificacion"),
+                        datosPersona.getString("fechaNacimiento"),
+                        datosPersona.getString("direccion"),
+                        datosPersona.getString("telefono"),
+                        datosPersona.getString("correo"),
                         rol
                 );
-
                 guardarPersona(paciente);
-
-            } else if (this instanceof odontologCrearOdontologo) {
-                odontologCrearOdontologo vista = (odontologCrearOdontologo) this;
-                int nuevoId = JsonManager.generarNuevoId("personas");
-
+                return true;
+            } else if (rol.equalsIgnoreCase("odontologo")) {
                 Odontologo odontologo = new Odontologo(
-                        nuevoId, // Primer parámetro: ID generado
-                        vista.getTxtNombre().getText(),
-                        vista.getTxtApellido().getText(),
-                        vista.getTxtIdentificacion().getText(),
-                        vista.getTxtFechaNacimiento().getText(), 
-                        vista.getTxtDireccion().getText(),
-                        vista.getTxtTelefono().getText(),
-                        vista.getTxtCorreo().getText(),
+                        datosPersona.getInt("id"),
+                        datosPersona.getString("nombre"),
+                        datosPersona.getString("apellido"),
+                        datosPersona.getString("identificacion"),
+                        datosPersona.getString("fechaNacimiento"),
+                        datosPersona.getString("direccion"),
+                        datosPersona.getString("telefono"),
+                        datosPersona.getString("correo"),
                         rol,
-                        new String(vista.getTxtPassword().getPassword()) 
+                        datosPersona.getString("password") // Asumo que la contraseña está en los datos
                 );
-
                 guardarPersona(odontologo);
-            }else{
-                System.out.println("No estas entrando a nada mi chino");
+                return true;
+            } else {
+                System.out.println("Rol de persona no reconocido: " + rol);
+                return false;
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
                     "Error al crear: " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
-        
-        return false;
     }
 
+    private void guardarPersona(Object persona) {
+        JSONArray personas = database.getJSONArray("personas");
+        JSONObject jsonPersona = new JSONObject(new Gson().toJson(persona));
+        personas.put(jsonPersona);
+        JsonManager.saveJson(database);
+    }
 }

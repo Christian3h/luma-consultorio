@@ -34,7 +34,7 @@ public class Controlador implements ActionListener {
     private void configurarActionListeners() {
         vistaLogin.getButtonUser().addActionListener(this);
         vistaOdontologo.getBtnGuardar().addActionListener(this);
-        vistaUsuario.getBtnGuardar().addActionListener(this);
+        //vistaUsuario.getBtnGuardar().addActionListener(this);
     }
 
     @Override
@@ -43,9 +43,10 @@ public class Controlador implements ActionListener {
             validarLogin();
         } else if (e.getSource() == vistaOdontologo.getBtnGuardar()) {
             crearOdontologo();
-        } else if (e.getSource() == vistaUsuario.getBtnGuardar()) {
-            crearPaciente();
         }
+//         else if (e.getSource() == vistaUsuario.getBtnGuardar()) {
+//            crearPaciente();
+//        }
     }
 
     private void validarLogin() {
