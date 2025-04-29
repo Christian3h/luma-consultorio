@@ -78,7 +78,7 @@ public class Controlador implements ActionListener {
             if (validarCamposOdontologo()) {
                 Odontologo odontologo = crearObjetoOdontologo();
                 JSONObject jsonOdontologo = convertirAJsonObject(odontologo);
-                
+                System.out.println("JSON Odontologo a guardar: " + jsonOdontologo.toString(2)); // El '2' es para una impresión formateada
                 boolean guardado = personaModel.crearPersona(jsonOdontologo, "odontologo");
                 
                 if (guardado) {

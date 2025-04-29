@@ -40,8 +40,8 @@ public class PersonaJson {
     public boolean crearPersona(JSONObject datosPersona, String rol) {
         try {
             int nuevoId = JsonManager.generarNuevoId("personas");
+            System.out.println(nuevoId);
             datosPersona.put("id", nuevoId); // Aseguramos que el ID esté en los datos
-
             if (rol.equalsIgnoreCase("paciente")) {
                 Paciente paciente = new Paciente(
                         datosPersona.getInt("id"),
@@ -60,8 +60,8 @@ public class PersonaJson {
                 Odontologo odontologo = new Odontologo(
                         datosPersona.getInt("id"),
                         datosPersona.getString("nombre"),
-                        datosPersona.getString("apellido"),
-                        datosPersona.getString("identificacion"),
+                        datosPersona.getString("apellidos"),
+                        datosPersona.getString("cedula"),
                         datosPersona.getString("fechaNacimiento"),
                         datosPersona.getString("direccion"),
                         datosPersona.getString("telefono"),
