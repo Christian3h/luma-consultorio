@@ -1,0 +1,16 @@
+{"personas": [
+  {
+    "password": "adminO",
+    "id": 1,
+    "nombre": "Odontologo",
+    "rol": "Odontologo",
+    "username": "adminO"
+  },
+  {
+    "password": "adminU",
+    "id": 2,
+    "nombre": "Usuario",
+    "rol": "Usuario",
+    "username": "adminU"
+  }
+]}

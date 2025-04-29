@@ -10,4 +10,24 @@
         <maven.compiler.release>21</maven.compiler.release>
         <exec.mainClass>com.mycompany.luma.LUMA</exec.mainClass>
     </properties>
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <dependencies>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20250107</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.lgooddatepicker</groupId>
+            <artifactId>LGoodDatePicker</artifactId>
+            <version>11.2.1</version> <!-- Esta es la versión actual a abril 2025 -->
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.13.1</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
 </project>
