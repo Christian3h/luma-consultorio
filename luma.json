@@ -50,6 +50,18 @@
       "telefono": "jTextField5",
       "rol": "paciente",
       "nombres": "jTextField1"
+    },
+    {
+      "apellidos": "arismedy",
+      "password": "cualquiera",
+      "fechaNacimiento": "2001-06-07",
+      "cedula": "12345",
+      "correo": "asdf",
+      "direccion": "avenida sempre viva",
+      "id": 4,
+      "telefono": "312123",
+      "rol": "odontologo",
+      "nombres": "jorge"
     }
   ]
 }
