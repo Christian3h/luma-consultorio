@@ -160,7 +160,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="text" type="java.lang.String" value="crear paciente"/>
+        <Property name="text" type="java.lang.String" value="crear odontologo"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombre">

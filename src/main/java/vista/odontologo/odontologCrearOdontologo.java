@@ -68,7 +68,7 @@ public class odontologCrearOdontologo extends javax.swing.JFrame {
 
         btnGuardar.setText("jButton1");
 
-        jLabel8.setText("crear paciente");
+        jLabel8.setText("crear odontologo");
 
         txtNombre.setText("jTextField1");
 

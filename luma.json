@@ -1,27 +1,16 @@
 {"personas": [
   {
     "password": "adminO",
+    "cedula": "123",
     "id": 1,
-    "nombre": "Odontologo",
     "rol": "Odontologo",
-    "username": "adminO"
+    "nombres": "adminO"
   },
   {
     "password": "adminU",
+    "cedula": "123",
     "id": 2,
-    "nombre": "Usuario",
     "rol": "Usuario",
-    "username": "adminU"
-  },
-  {
-    "apellidos": "jTextField2",
-    "fechaNacimiento": "2025-04-22",
-    "cedula": "jTextField3",
-    "correo": "jTextField6",
-    "direccion": "jTextField4",
-    "id": 3,
-    "telefono": "jTextField5",
-    "nombre": "jTextField1",
-    "rol": "odontologo"
+    "nombres": "adminU"
   }
 ]}

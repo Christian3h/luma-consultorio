@@ -18,8 +18,8 @@ public class JsonManager {
                 // Crear usuario admin
                 JSONObject Odontologo = new JSONObject();
                 Odontologo.put("id", 1);
-                Odontologo.put("nombre", "Odontologo");
-                Odontologo.put("username", "adminO");
+                Odontologo.put("nombres", "adminO");
+                Odontologo.put("cedula", "123");
                 Odontologo.put("password", "adminO"); 
                 Odontologo.put("rol", "Odontologo");
                 
@@ -27,8 +27,8 @@ public class JsonManager {
                 
                 JSONObject Usuario = new JSONObject();
                 Usuario.put("id", 2);
-                Usuario.put("nombre", "Usuario");
-                Usuario.put("username", "adminU");
+                Usuario.put("nombres", "adminU");
+                Usuario.put("cedula", "123");
                 Usuario.put("password", "adminU"); 
                 Usuario.put("rol", "Usuario");
                 

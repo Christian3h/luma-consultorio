@@ -6,7 +6,7 @@ package modelo;
 public class Persona {
 
     protected int id;
-    protected String nombre;
+    protected String nombres;
     protected String apellidos;
     protected String cedula;
     protected String fechaNacimiento;
@@ -15,10 +15,10 @@ public class Persona {
     protected String correo;
     protected String rol;
 
-    public Persona(int id, String nombre, String apellidos, String cedula, String fechaNacimiento, String direccion,
+    public Persona(int id, String nombres, String apellidos, String cedula, String fechaNacimiento, String direccion,
             String telefono, String correo, String rol) {
         this.id = id;
-        this.nombre = nombre;
+        this.nombres = nombres;
         this.apellidos = apellidos;
         this.cedula = cedula;
         this.fechaNacimiento = fechaNacimiento;
@@ -30,7 +30,7 @@ public class Persona {
 
     public Persona() {
         this.id = 0; // o -1 si prefieres
-        this.nombre = null;
+        this.nombres = null;
         this.apellidos = null;
         this.cedula = null;
         this.fechaNacimiento = null;
@@ -40,12 +40,31 @@ public class Persona {
         this.rol = null;
     }
 
-    public String getNombre() {
-        return nombre;
+    public int getId() {
+        return id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    
+    
+    
+    public String getNombres() {
+        return nombres;
+    }
+
+    public void setNombres(String nombre) {
+        this.nombres = nombre;
     }
 
     public String getApellidos() {
