@@ -42,6 +42,28 @@ public class PersonaJson {
         return false;
     }
 
+    public boolean existePaciente(String identificacion) {
+        JSONArray personas = database.getJSONArray("personas");
+        for (int i = 0; i < personas.length(); i++) {
+            JSONObject persona = personas.getJSONObject(i);
+            if (persona.has("cedula") && persona.getString("cedula").equals(identificacion) && persona.getString("rol").equalsIgnoreCase("paciente")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean existeOdontologo(String identificacion) {
+        JSONArray personas = database.getJSONArray("personas");
+        for (int i = 0; i < personas.length(); i++) {
+            JSONObject persona = personas.getJSONObject(i);
+            if (persona.has("cedula") && persona.getString("cedula").equals(identificacion) && persona.getString("rol").equalsIgnoreCase("odontologo")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean existeIdentificacion(String identificacion) {
         JSONArray personas = database.getJSONArray("personas");
         for (int i = 0; i < personas.length(); i++) {

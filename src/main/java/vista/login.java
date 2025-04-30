@@ -4,10 +4,12 @@
  */
 package vista;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import vista.components.menu;
 
 /**
  *
@@ -16,11 +18,18 @@ import javax.swing.JTextField;
 public class login extends javax.swing.JFrame {
 
     int xMouse, yMouse;
-
+    private menu vistaMenu;
+    
     public login() {
         initComponents();
+        vistaMenu = new menu(); // Inicializa el panel del menú
+        this.add(vistaMenu, BorderLayout.WEST);
     }
 
+    public menu getMenu() {
+        return vistaMenu;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

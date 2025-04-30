@@ -1,6 +1,7 @@
 package vista.usuario;
 
 import com.github.lgooddatepicker.components.DatePicker;
+import controlador.MenuControlador;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -13,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import modelo.PersonaJson;
 import vista.components.menu;
 import vista.usuario.usuarioCrearUsuario;
 
@@ -23,41 +25,36 @@ import vista.usuario.usuarioCrearUsuario;
 public class usuarioCrearPaciente extends javax.swing.JFrame {
 
     private usuarioCrearUsuario ventanaU;
-
+     private PersonaJson personaModel;
     /**
      * Creates new form usuarioCrearPaciente
      */
     public usuarioCrearPaciente() {
         initComponents();
+        initComponents();
+
+        personaModel = new PersonaJson();  // Inicializa tu modelo de PersonaJson aquí
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centrar ventana
-        setLayout(new BorderLayout()); // Aseguramos que haya BorderLayout
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
         // Menú lateral reutilizable
         menu menuComponent = new menu();
         add(menuComponent, BorderLayout.WEST);
 
+        // Controlador del menú
+        new MenuControlador(menuComponent, personaModel, "usuario"); // Asocia el menú con el controlador y el modelo
+
         // Panel de contenido del formulario
         JPanel panelFormulario = new JPanel(new GridBagLayout());
         panelFormulario.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-        
-        
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.CENTER; // Centrado opcional
-      
-
         add(panelFormulario, BorderLayout.CENTER);
 
-        pack();            // Ajustar tamaño al contenido
-        revalidate();      // Validar cambios de layout
-        repaint();         // Forzar repintado visual
-       
+        pack();
+        revalidate();
+        repaint();
+
     }
 
     /**

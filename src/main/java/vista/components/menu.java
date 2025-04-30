@@ -5,6 +5,7 @@
 package vista.components;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  *
@@ -35,6 +36,9 @@ public class menu extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnCrearUsuaros = new javax.swing.JButton();
+        btnCrearPacentes = new javax.swing.JButton();
+        btnCrearCitas = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(143, 166, 143));
 
@@ -44,17 +48,37 @@ public class menu extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon("/home/christian/NetBeansProjects/LUMA/src/main/java/assets/img/path1.png")); // NOI18N
 
+        btnCrearUsuaros.setText("usuarios");
+
+        btnCrearPacentes.setText("pacientes");
+
+        btnCrearCitas.setText("citas");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(btnCrearPacentes, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(btnCrearCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(btnCrearUsuaros, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 414, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addComponent(btnCrearPacentes, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnCrearCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(btnCrearUsuaros, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -70,7 +94,37 @@ public class menu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 
+    public JButton getBtnCrearCitas() {
+        return btnCrearCitas;
+    }
+
+    public void setBtnCrearCitas(JButton btnCrearCitas) {
+        this.btnCrearCitas = btnCrearCitas;
+    }
+
+    public JButton getBtnCrearPacentes() {
+        return btnCrearPacentes;
+    }
+
+    public void setBtnCrearPacentes(JButton btnCrearPacentes) {
+        this.btnCrearPacentes = btnCrearPacentes;
+    }
+
+    public JButton getBtnCrearUsuarios() {
+        return btnCrearUsuaros;
+    }
+
+    public void setBtnCrearUsuarios(JButton btnCrearUsuaros) {
+        this.btnCrearUsuaros = btnCrearUsuaros;
+    }
+    
+    
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCrearCitas;
+    private javax.swing.JButton btnCrearPacentes;
+    private javax.swing.JButton btnCrearUsuaros;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

@@ -12,6 +12,7 @@ import modelo.Paciente;
 import modelo.Usuario;
 import modelo.PersonaJson;
 import org.json.JSONObject;
+import vista.components.menu;
 
 public class Controlador implements ActionListener {
 
@@ -21,14 +22,15 @@ public class Controlador implements ActionListener {
     private odontologCrearOdontologo vistaOdontologo;
     private PersonaJson personaModel;
     private final Gson gson = new Gson();
+    private menu vistaMenu;
+    private MenuControlador controladorMenu;
 
     public Controlador() {
         this.personaModel = new PersonaJson();
         this.vistaLogin = new login();
         this.vistaUsuarioPaciente = new usuarioCrearPaciente();
-        this.vistaUsuarioCrear = new usuarioCrearUsuario(); // Inicializa la vista de creación de usuarios
+        this.vistaUsuarioCrear = new usuarioCrearUsuario();
         this.vistaOdontologo = new odontologCrearOdontologo();
-
         configurarActionListeners();
     }
 
@@ -56,9 +58,16 @@ public class Controlador implements ActionListener {
         } else if (e.getSource() == vistaUsuarioCrear.getBtnGuardar()) {
             crearUsuario();
         } else if (e.getSource() == vistaUsuarioPaciente.getjButton1()) {
-            vistaUsuarioCrear.setLocationRelativeTo(vistaUsuarioPaciente); // Centrar la ventana de creación relativa a la ventana del paciente
+            vistaUsuarioCrear.setLocationRelativeTo(vistaUsuarioPaciente);
             vistaUsuarioCrear.setVisible(true);
         }
+    }
+
+    private void mostrarMenu(String rol) {
+        vistaMenu = new menu();
+        controladorMenu = new MenuControlador(vistaMenu, personaModel, rol);
+        //vistaMenu.setLocationRelativeTo(null);
+        vistaMenu.setVisible(true);
     }
 
     private void validarLogin() {
@@ -66,22 +75,21 @@ public class Controlador implements ActionListener {
         char[] pass = vistaLogin.getPasswordUser().getPassword();
         String rol = personaModel.validarUsuario(user, new String(pass)).toLowerCase();
 
-        switch (rol) {
-            case "odontologo":
-                vistaOdontologo.setLocationRelativeTo(null);
-                vistaOdontologo.setVisible(true);
-                vistaLogin.setVisible(false);
-                break;
-            case "usuario":
-                vistaUsuarioPaciente.setLocationRelativeTo(null);
-                vistaUsuarioPaciente.setVisible(true);
-                vistaLogin.setVisible(false);
-                break;
-            default:
-                JOptionPane.showMessageDialog(vistaLogin,
-                        "Credenciales incorrectas",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
+        if (rol.equals("odontologo")) {
+            mostrarMenu(rol);
+            vistaOdontologo.setLocationRelativeTo(null);
+            vistaOdontologo.setVisible(true);
+            vistaLogin.setVisible(false);
+        } else if (rol.equals("usuario")) {
+            mostrarMenu(rol);
+            vistaUsuarioPaciente.setLocationRelativeTo(null);
+            vistaUsuarioPaciente.setVisible(true);
+            vistaLogin.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(vistaLogin,
+                    "Credenciales incorrectas",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -103,8 +111,6 @@ public class Controlador implements ActionListener {
             if (validarCamposOdontologo()) {
                 Odontologo odontologo = crearObjetoOdontologo();
                 JSONObject jsonOdontologo = convertirAJsonObject(odontologo);
-
-                System.out.println("JSON Odontologo a guardar: " + jsonOdontologo.toString(2));
                 boolean guardado = personaModel.crearPersona(jsonOdontologo, "odontologo");
 
                 if (guardado) {
@@ -137,8 +143,6 @@ public class Controlador implements ActionListener {
             if (validarCamposUsuario()) {
                 Usuario usuario = crearObjetoUsuario();
                 JSONObject jsonUsuario = convertirAJsonObject(usuario);
-
-                System.out.println("JSON usuario a guardar: " + jsonUsuario.toString(2));
                 boolean guardado = personaModel.crearPersona(jsonUsuario, "usuario");
 
                 if (guardado) {
@@ -171,8 +175,6 @@ public class Controlador implements ActionListener {
             if (validarCamposPaciente()) {
                 Paciente paciente = crearObjetoPaciente();
                 JSONObject jsonPaciente = convertirAJsonObject(paciente);
-
-                System.out.println("JSON Paciente a guardar: " + jsonPaciente.toString(2));
                 boolean guardado = personaModel.crearPersona(jsonPaciente, "paciente");
 
                 if (guardado) {
@@ -188,113 +190,87 @@ public class Controlador implements ActionListener {
     }
 
     private boolean validarCamposOdontologo() {
-        if (vistaOdontologo.getTxtNombre().getText().isEmpty()
-                || vistaOdontologo.getTxtApellido().getText().isEmpty()
-                || vistaOdontologo.getTxtIdentificacion().getText().isEmpty()
-                || (vistaOdontologo.getTxtFechaNacimiento() != null && vistaOdontologo.getTxtFechaNacimiento().getDate() == null)
-                || vistaOdontologo.getTxtDireccion().getText().isEmpty()
-                || vistaOdontologo.getTxtTelefono().getText().isEmpty()
-                || vistaOdontologo.getTxtCorreo().getText().isEmpty()
-                || vistaOdontologo.getTxtPassword().getPassword().length == 0) {
-
-            mostrarMensajeError("Todos los campos son obligatorios", vistaOdontologo);
-            return false;
-        }
-        return true;
+        return !vistaOdontologo.getTxtNombre().getText().isEmpty()
+                && !vistaOdontologo.getTxtApellido().getText().isEmpty()
+                && !vistaOdontologo.getTxtIdentificacion().getText().isEmpty()
+                && (vistaOdontologo.getTxtFechaNacimiento() != null && vistaOdontologo.getTxtFechaNacimiento().getDate() != null)
+                && !vistaOdontologo.getTxtDireccion().getText().isEmpty()
+                && !vistaOdontologo.getTxtTelefono().getText().isEmpty()
+                && !vistaOdontologo.getTxtCorreo().getText().isEmpty()
+                && vistaOdontologo.getTxtPassword().getPassword().length > 0;
     }
 
     private boolean validarCamposUsuario() {
-        if (vistaUsuarioCrear.getTxtNombre().getText().isEmpty()
-                || vistaUsuarioCrear.getTxtApellido().getText().isEmpty()
-                || vistaUsuarioCrear.getTxtIdentificacion().getText().isEmpty()
-                || (vistaUsuarioCrear.getTxtFechaNacimiento() != null && vistaUsuarioCrear.getTxtFechaNacimiento().getDate() == null)
-                || vistaUsuarioCrear.getTxtDireccion().getText().isEmpty()
-                || vistaUsuarioCrear.getTxtTelefono().getText().isEmpty()
-                || vistaUsuarioCrear.getTxtCorreo().getText().isEmpty()
-                || vistaUsuarioCrear.getTxtPassword().getPassword().length == 0) {
-
-            mostrarMensajeError("Todos los campos son obligatorios", vistaUsuarioCrear);
-            return false;
-        }
-        return true;
+        return !vistaUsuarioCrear.getTxtNombre().getText().isEmpty()
+                && !vistaUsuarioCrear.getTxtApellido().getText().isEmpty()
+                && !vistaUsuarioCrear.getTxtIdentificacion().getText().isEmpty()
+                && (vistaUsuarioCrear.getTxtFechaNacimiento() != null && vistaUsuarioCrear.getTxtFechaNacimiento().getDate() != null)
+                && !vistaUsuarioCrear.getTxtDireccion().getText().isEmpty()
+                && !vistaUsuarioCrear.getTxtTelefono().getText().isEmpty()
+                && !vistaUsuarioCrear.getTxtCorreo().getText().isEmpty()
+                && vistaUsuarioCrear.getTxtPassword().getPassword().length > 0;
     }
 
     private boolean validarCamposPaciente() {
-        if (vistaUsuarioPaciente.getTxtNombre().getText().isEmpty()
-                || vistaUsuarioPaciente.getTxtApellido().getText().isEmpty()
-                || vistaUsuarioPaciente.getTxtIdentificacion().getText().isEmpty()
-                || (vistaUsuarioPaciente.getTxtFechaNacimiento() != null && vistaUsuarioPaciente.getTxtFechaNacimiento().getDate() == null)
-                || vistaUsuarioPaciente.getTxtDireccion().getText().isEmpty()
-                || vistaUsuarioPaciente.getTxtTelefono().getText().isEmpty()
-                || vistaUsuarioPaciente.getTxtCorreo().getText().isEmpty()) {
-
-            mostrarMensajeError("Todos los campos son obligatorios", vistaUsuarioPaciente);
-            return false;
-        }
-        return true;
+        return !vistaUsuarioPaciente.getTxtNombre().getText().isEmpty()
+                && !vistaUsuarioPaciente.getTxtApellido().getText().isEmpty()
+                && !vistaUsuarioPaciente.getTxtIdentificacion().getText().isEmpty()
+                && (vistaUsuarioPaciente.getTxtFechaNacimiento() != null && vistaUsuarioPaciente.getTxtFechaNacimiento().getDate() != null)
+                && !vistaUsuarioPaciente.getTxtDireccion().getText().isEmpty()
+                && !vistaUsuarioPaciente.getTxtTelefono().getText().isEmpty()
+                && !vistaUsuarioPaciente.getTxtCorreo().getText().isEmpty();
     }
 
     private Odontologo crearObjetoOdontologo() {
-        Odontologo odontologo = new Odontologo();
-        odontologo.setNombres(vistaOdontologo.getTxtNombre().getText());
-        odontologo.setApellidos(vistaOdontologo.getTxtApellido().getText());
-        odontologo.setCedula(vistaOdontologo.getTxtIdentificacion().getText());
-        if (vistaOdontologo.getTxtFechaNacimiento() != null && vistaOdontologo.getTxtFechaNacimiento().getDate() != null) {
-            odontologo.setFechaNacimiento(vistaOdontologo.getTxtFechaNacimiento().getDate().toString());
-        }
-        odontologo.setDireccion(vistaOdontologo.getTxtDireccion().getText());
-        odontologo.setTelefono(vistaOdontologo.getTxtTelefono().getText());
-        odontologo.setCorreo(vistaOdontologo.getTxtCorreo().getText());
-        odontologo.setPassword(new String(vistaOdontologo.getTxtPassword().getPassword()));
-        odontologo.setRol("odontologo");
-
-        return odontologo;
+        Odontologo o = new Odontologo();
+        o.setNombres(vistaOdontologo.getTxtNombre().getText());
+        o.setApellidos(vistaOdontologo.getTxtApellido().getText());
+        o.setCedula(vistaOdontologo.getTxtIdentificacion().getText());
+        o.setFechaNacimiento(vistaOdontologo.getTxtFechaNacimiento().getDate().toString());
+        o.setDireccion(vistaOdontologo.getTxtDireccion().getText());
+        o.setTelefono(vistaOdontologo.getTxtTelefono().getText());
+        o.setCorreo(vistaOdontologo.getTxtCorreo().getText());
+        o.setPassword(new String(vistaOdontologo.getTxtPassword().getPassword()));
+        o.setRol("odontologo");
+        return o;
     }
 
     private Usuario crearObjetoUsuario() {
-        Usuario usuario = new Usuario();
-        usuario.setNombres(vistaUsuarioCrear.getTxtNombre().getText());
-        usuario.setApellidos(vistaUsuarioCrear.getTxtApellido().getText());
-        usuario.setCedula(vistaUsuarioCrear.getTxtIdentificacion().getText());
-        if (vistaUsuarioCrear.getTxtFechaNacimiento() != null && vistaUsuarioCrear.getTxtFechaNacimiento().getDate() != null) {
-            usuario.setFechaNacimiento(vistaUsuarioCrear.getTxtFechaNacimiento().getDate().toString());
-        }
-        usuario.setDireccion(vistaUsuarioCrear.getTxtDireccion().getText());
-        usuario.setTelefono(vistaUsuarioCrear.getTxtTelefono().getText());
-        usuario.setCorreo(vistaUsuarioCrear.getTxtCorreo().getText());
-        usuario.setPassword(new String(vistaUsuarioCrear.getTxtPassword().getPassword()));
-        usuario.setRol("usuario");
-
-        return usuario;
+        Usuario u = new Usuario();
+        u.setNombres(vistaUsuarioCrear.getTxtNombre().getText());
+        u.setApellidos(vistaUsuarioCrear.getTxtApellido().getText());
+        u.setCedula(vistaUsuarioCrear.getTxtIdentificacion().getText());
+        u.setFechaNacimiento(vistaUsuarioCrear.getTxtFechaNacimiento().getDate().toString());
+        u.setDireccion(vistaUsuarioCrear.getTxtDireccion().getText());
+        u.setTelefono(vistaUsuarioCrear.getTxtTelefono().getText());
+        u.setCorreo(vistaUsuarioCrear.getTxtCorreo().getText());
+        u.setPassword(new String(vistaUsuarioCrear.getTxtPassword().getPassword()));
+        u.setRol("usuario");
+        return u;
     }
 
     private Paciente crearObjetoPaciente() {
-        Paciente paciente = new Paciente();
-        paciente.setNombres(vistaUsuarioPaciente.getTxtNombre().getText());
-        paciente.setApellidos(vistaUsuarioPaciente.getTxtApellido().getText());
-        paciente.setCedula(vistaUsuarioPaciente.getTxtIdentificacion().getText());
-        if (vistaUsuarioPaciente.getTxtFechaNacimiento() != null && vistaUsuarioPaciente.getTxtFechaNacimiento().getDate() != null) {
-            paciente.setFechaNacimiento(vistaUsuarioPaciente.getTxtFechaNacimiento().getDate().toString());
-        }
-        paciente.setDireccion(vistaUsuarioPaciente.getTxtDireccion().getText());
-        paciente.setTelefono(vistaUsuarioPaciente.getTxtTelefono().getText());
-        paciente.setCorreo(vistaUsuarioPaciente.getTxtCorreo().getText());
-        paciente.setRol("paciente");
-
-        return paciente;
+        Paciente p = new Paciente();
+        p.setNombres(vistaUsuarioPaciente.getTxtNombre().getText());
+        p.setApellidos(vistaUsuarioPaciente.getTxtApellido().getText());
+        p.setCedula(vistaUsuarioPaciente.getTxtIdentificacion().getText());
+        p.setFechaNacimiento(vistaUsuarioPaciente.getTxtFechaNacimiento().getDate().toString());
+        p.setDireccion(vistaUsuarioPaciente.getTxtDireccion().getText());
+        p.setTelefono(vistaUsuarioPaciente.getTxtTelefono().getText());
+        p.setCorreo(vistaUsuarioPaciente.getTxtCorreo().getText());
+        p.setRol("paciente");
+        return p;
     }
 
-    private JSONObject convertirAJsonObject(Object objeto) {
-        return new JSONObject(gson.toJson(objeto));
+    private JSONObject convertirAJsonObject(Object obj) {
+        return new JSONObject(gson.toJson(obj));
     }
 
     private void limpiarFormularioOdontologo() {
         vistaOdontologo.getTxtNombre().setText("");
         vistaOdontologo.getTxtApellido().setText("");
         vistaOdontologo.getTxtIdentificacion().setText("");
-        if (vistaOdontologo.getTxtFechaNacimiento() != null) {
-            vistaOdontologo.getTxtFechaNacimiento().setDate(null);
-        }
+        vistaOdontologo.getTxtFechaNacimiento().setDate(null);
         vistaOdontologo.getTxtDireccion().setText("");
         vistaOdontologo.getTxtTelefono().setText("");
         vistaOdontologo.getTxtCorreo().setText("");
@@ -305,9 +281,7 @@ public class Controlador implements ActionListener {
         vistaUsuarioCrear.getTxtNombre().setText("");
         vistaUsuarioCrear.getTxtApellido().setText("");
         vistaUsuarioCrear.getTxtIdentificacion().setText("");
-        if (vistaUsuarioCrear.getTxtFechaNacimiento() != null) {
-            vistaUsuarioCrear.getTxtFechaNacimiento().setDate(null);
-        }
+        vistaUsuarioCrear.getTxtFechaNacimiento().setDate(null);
         vistaUsuarioCrear.getTxtDireccion().setText("");
         vistaUsuarioCrear.getTxtTelefono().setText("");
         vistaUsuarioCrear.getTxtCorreo().setText("");
@@ -318,9 +292,7 @@ public class Controlador implements ActionListener {
         vistaUsuarioPaciente.getTxtNombre().setText("");
         vistaUsuarioPaciente.getTxtApellido().setText("");
         vistaUsuarioPaciente.getTxtIdentificacion().setText("");
-        if (vistaUsuarioPaciente.getTxtFechaNacimiento() != null) {
-            vistaUsuarioPaciente.getTxtFechaNacimiento().setDate(null);
-        }
+        vistaUsuarioPaciente.getTxtFechaNacimiento().setDate(null);
         vistaUsuarioPaciente.getTxtDireccion().setText("");
         vistaUsuarioPaciente.getTxtTelefono().setText("");
         vistaUsuarioPaciente.getTxtCorreo().setText("");
@@ -335,10 +307,7 @@ public class Controlador implements ActionListener {
     }
 
     private void manejarError(Exception ex, JFrame parent) {
-        JOptionPane.showMessageDialog(parent,
-                "Error: " + ex.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(parent, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         ex.printStackTrace();
     }
 }

@@ -1,16 +1,55 @@
-{"personas": [
-  {
-    "password": "adminO",
-    "cedula": "123",
-    "id": 1,
-    "rol": "Odontologo",
-    "nombres": "adminO"
-  },
-  {
-    "password": "adminU",
-    "cedula": "123",
-    "id": 2,
-    "rol": "Usuario",
-    "nombres": "adminU"
-  }
-]}
+{
+  "citas": [
+    {
+      "descripcion": "123",
+      "fecha": "24 de abril de 2025 12:12",
+      "documentoOdontologo": "123",
+      "documentoPaciente": "567"
+    },
+    {
+      "descripcion": "234",
+      "fecha": "16 de abril de 2025 4:00\u202fa.\u202fm.",
+      "documentoOdontologo": "123",
+      "documentoPaciente": "567"
+    },
+    {
+      "descripcion": "123",
+      "fecha": "21 de abril de 2025 12:31",
+      "documentoOdontologo": "123",
+      "documentoPaciente": "456"
+    },
+    {
+      "descripcion": "123",
+      "fecha": "24 de abril de 2025 23:23",
+      "documentoOdontologo": "123",
+      "documentoPaciente": "456"
+    }
+  ],
+  "personas": [
+    {
+      "password": "adminO",
+      "cedula": "123",
+      "id": 1,
+      "rol": "Odontologo",
+      "nombres": "adminO"
+    },
+    {
+      "password": "adminU",
+      "cedula": "123",
+      "id": 2,
+      "rol": "Usuario",
+      "nombres": "adminU"
+    },
+    {
+      "apellidos": "jTextField2",
+      "fechaNacimiento": "2025-04-21",
+      "cedula": "456",
+      "correo": "jTextField6",
+      "direccion": "jTextField4",
+      "id": 3,
+      "telefono": "jTextField5",
+      "rol": "paciente",
+      "nombres": "jTextField1"
+    }
+  ]
+}
