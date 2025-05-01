@@ -1,6 +1,5 @@
 package vista.usuario;
 
-import vista.odontologo.*;
 import vista.usuario.*;
 import com.github.lgooddatepicker.components.DatePicker;
 import controlador.Controlador;

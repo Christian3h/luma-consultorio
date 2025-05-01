@@ -36,7 +36,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jLabel1" pref="256" max="32767" attributes="0"/>
+              <Component id="jLabel1" pref="300" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -44,8 +44,17 @@
                       <Component id="btnCrearCitas" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnCrearUsuaros" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnCrearOdontologo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnGestionarUsuarios" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnGestionarPacientes" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnGestionarOdontologos" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -53,15 +62,26 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Component id="jLabel1" min="-2" pref="134" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnCrearPacentes" min="-2" pref="58" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnCrearCitas" min="-2" pref="63" max="-2" attributes="0"/>
+                  <Component id="btnCrearPacentes" min="-2" pref="52" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnCrearCitas" min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnCrearUsuaros" min="-2" pref="53" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnCrearUsuaros" min="-2" pref="67" max="-2" attributes="0"/>
+                  <Component id="btnCrearOdontologo" min="-2" pref="42" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                  <Component id="btnGestionarUsuarios" min="-2" pref="42" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="btnGestionarPacientes" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnCrearOdontologo" min="-2" pref="67" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="377" max="32767" attributes="0"/>
+                      <Component id="btnGestionarOdontologos" min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="281" max="-2" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -102,6 +122,21 @@
         <Component class="javax.swing.JButton" name="btnCrearOdontologo">
           <Properties>
             <Property name="text" type="java.lang.String" value="crear odontologos"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnGestionarUsuarios">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="gestionar Usuarios"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnGestionarOdontologos">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="gestionar Odontologos"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnGestionarPacientes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="gestionar pacientes"/>
           </Properties>
         </Component>
       </SubComponents>

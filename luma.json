@@ -27,9 +27,14 @@
   ],
   "personas": [
     {
+      "apellidos": "pedro",
       "password": "adminO",
+      "fechaNacimiento": "2001-12-12",
       "cedula": "123",
+      "correo": "asdf@asdf.com",
+      "direccion": "123",
       "id": 1,
+      "telefono": "31780712",
       "rol": "Odontologo",
       "nombres": "adminO"
     },
@@ -41,50 +46,26 @@
       "nombres": "adminU"
     },
     {
-      "apellidos": "jTextField2",
+      "apellidos": "martinez",
       "fechaNacimiento": "2025-04-21",
       "cedula": "456",
-      "correo": "jTextField6",
-      "direccion": "jTextField4",
-      "id": 3,
-      "telefono": "jTextField5",
+      "correo": "christian@gmail.com",
+      "direccion": "donde  las putas",
+      "telefono": "317900",
       "rol": "paciente",
-      "nombres": "jTextField1"
+      "nombres": "christian"
     },
     {
       "apellidos": "arismedy",
       "password": "cualquiera",
       "fechaNacimiento": "2001-06-07",
       "cedula": "12345",
-      "correo": "asdf",
+      "correo": "asdf@ga.com",
       "direccion": "avenida sempre viva",
       "id": 4,
       "telefono": "312123",
-      "rol": "odontologo",
+      "rol": "Odontologo",
       "nombres": "jorge"
-    },
-    {
-      "apellidos": "jTextField2",
-      "password": "jPasswordField1",
-      "fechaNacimiento": "2025-04-10",
-      "cedula": "jTextField3",
-      "correo": "234",
-      "direccion": "jTextField4",
-      "id": 5,
-      "telefono": "jTextField5",
-      "rol": "odontologo",
-      "nombres": "jTextField1"
-    },
-    {
-      "apellidos": "alvarez",
-      "fechaNacimiento": "2025-04-23",
-      "cedula": "911",
-      "correo": "123",
-      "direccion": "no se la mas cercana ",
-      "id": 6,
-      "telefono": "123",
-      "rol": "paciente",
-      "nombres": "pepe"
     },
     {
       "apellidos": "1243234",
