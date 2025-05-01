@@ -30,7 +30,6 @@ public class MenuControlador {
                 if (controlador == null) {
                     controlador = new Controlador();
                 }
-                // Aquí puedes implementar controlador.iniciarCitas(); si lo agregas
                 controlador.iniciarCitas();
             }
         });
@@ -38,10 +37,10 @@ public class MenuControlador {
         vistaMenu.getBtnCrearPacentes().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                cerrarVentanaActual();
                 if (controlador == null) {
                     controlador = new Controlador();
                 }
-                cerrarVentanaActual();
                 controlador.iniciarUsuario();
             }
         });
@@ -53,7 +52,7 @@ public class MenuControlador {
                 if (controlador == null) {
                     controlador = new Controlador();
                 }
-                controlador.iniciarUsuarioCrear(); // ← debes agregar este método
+                controlador.iniciarUsuarioCrear(); 
             }
         });
 

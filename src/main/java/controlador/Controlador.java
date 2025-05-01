@@ -30,10 +30,16 @@ public class Controlador implements ActionListener {
     public Controlador() {
         this.personaModel = new PersonaJson();
         this.vistaUsuarioPaciente = new usuarioCrearPaciente(this);
-        this.vistaUsuarioCrear = new usuarioCrearUsuario();
-        this.vistaOdontologo = new odontologCrearOdontologo();
+        this.vistaUsuarioCrear = new usuarioCrearUsuario(this);
+        this.vistaOdontologo = new odontologCrearOdontologo(this);
         configurarActionListeners();
-        mostrarMenuInicial();
+        // mostrarMenuInicial();
+    }
+
+    private void configurarActionListeners() {
+        vistaOdontologo.getBtnGuardar().addActionListener(this);
+        vistaUsuarioPaciente.getBtnGuardar().addActionListener(this);
+        vistaUsuarioCrear.getBtnGuardar().addActionListener(this);
     }
 
     public void iniciarOdontologoCrear() {
@@ -45,7 +51,6 @@ public class Controlador implements ActionListener {
         vistaUsuarioPaciente.setLocationRelativeTo(null);
         vistaUsuarioPaciente.setVisible(true);
     }
-    
 
     public void iniciarUsuarioCrear() {
         vistaUsuarioCrear.setLocationRelativeTo(null);
@@ -57,12 +62,6 @@ public class Controlador implements ActionListener {
         citasControlador = new CitasControlador(vistaCitas, personaModel); // ✅ GUÁRDALO
         vistaCitas.setLocationRelativeTo(null);
         vistaCitas.setVisible(true);
-    }
-
-    private void configurarActionListeners() {
-        vistaOdontologo.getBtnGuardar().addActionListener(this);
-        vistaUsuarioPaciente.getBtnGuardar().addActionListener(this);
-        vistaUsuarioCrear.getBtnGuardar().addActionListener(this);
     }
 
     @Override
@@ -108,6 +107,8 @@ public class Controlador implements ActionListener {
                 } else {
                     mostrarMensajeError("Error al guardar el odontólogo", vistaOdontologo);
                 }
+            }else{
+                mostrarMensajeError("Todos los campos son obligatorios", vistaOdontologo);
             }
         } catch (Exception ex) {
             manejarError(ex, vistaOdontologo);
@@ -140,6 +141,8 @@ public class Controlador implements ActionListener {
                 } else {
                     mostrarMensajeError("Error al guardar el usuario", vistaUsuarioCrear);
                 }
+            }else{
+                mostrarMensajeError("Todos los campos son obligatorios", vistaUsuarioCrear);
             }
         } catch (Exception ex) {
             manejarError(ex, vistaUsuarioCrear);
@@ -172,6 +175,8 @@ public class Controlador implements ActionListener {
                 } else {
                     mostrarMensajeError("Error al guardar el paciente", vistaUsuarioPaciente);
                 }
+            }else{
+                mostrarMensajeError("Todos los campos son obligatorios", vistaUsuarioCrear);
             }
         } catch (Exception ex) {
             manejarError(ex, vistaUsuarioPaciente);

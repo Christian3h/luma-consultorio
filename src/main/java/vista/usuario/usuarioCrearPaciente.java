@@ -26,41 +26,41 @@ import vista.usuario.usuarioCrearUsuario;
  */
 public class usuarioCrearPaciente extends javax.swing.JFrame {
 
-  private usuarioCrearUsuario ventanaU;
-  private PersonaJson personaModel;
-  private Controlador controlador;
+    private usuarioCrearUsuario ventanaU;
+    private PersonaJson personaModel;
+    private Controlador controlador;
 
-  /**
-   * Creates new form usuarioCrearPaciente
-   */
+    /**
+     * Creates new form usuarioCrearPaciente
+     */
+    public usuarioCrearPaciente(Controlador controlador) {
 
-  public usuarioCrearPaciente(Controlador controlador) {
-    this.controlador = controlador;
-    initComponents();
+        initComponents();
+        this.controlador = controlador;
+        
+        personaModel = new PersonaJson();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
-    personaModel = new PersonaJson();
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setLocationRelativeTo(null);
-    setLayout(new BorderLayout());
+        menu menuComponent = new menu();
+        add(menuComponent, BorderLayout.WEST);
 
-    menu menuComponent = new menu();
-    add(menuComponent, BorderLayout.WEST);
+        // ¡Aquí ya puedes pasarlo correctamente!
+        new MenuControlador(menuComponent, personaModel, "usuario", controlador);
 
-    // ¡Aquí ya puedes pasarlo correctamente!
-    new MenuControlador(menuComponent, personaModel, "usuario", controlador);
+        JPanel panelFormulario = new JPanel(new GridBagLayout());
+        panelFormulario.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        add(panelFormulario, BorderLayout.CENTER);
 
-    JPanel panelFormulario = new JPanel(new GridBagLayout());
-    panelFormulario.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-    add(panelFormulario, BorderLayout.CENTER);
+        pack();
+        revalidate();
+        repaint();
+    }
 
-    pack();
-    revalidate();
-    repaint();
-  }
-
-  @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated
-  // <editor-fold defaultstate="collapsed" desc="Generated
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -87,7 +87,6 @@ public class usuarioCrearPaciente extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
         btnGuardar = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1100, 700));
@@ -197,17 +196,6 @@ public class usuarioCrearPaciente extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -267,9 +255,6 @@ public class usuarioCrearPaciente extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(300, 300, 300)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(320, 320, 320)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,8 +307,7 @@ public class usuarioCrearPaciente extends javax.swing.JFrame {
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(60, 60, 60)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(60, 60, 60))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -342,85 +326,85 @@ public class usuarioCrearPaciente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-  private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnGuardarMouseEntered
+    private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnGuardarMouseEntered
 
-    btnGuardar.setBackground(new java.awt.Color(70, 110, 112));
-    btnGuardar.setForeground(Color.white);
-  }// GEN-LAST:event_btnGuardarMouseEntered
+        btnGuardar.setBackground(new java.awt.Color(70, 110, 112));
+        btnGuardar.setForeground(Color.white);
+    }// GEN-LAST:event_btnGuardarMouseEntered
 
-  private void btnGuardarMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnGuardarMouseExited
+    private void btnGuardarMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnGuardarMouseExited
 
-    btnGuardar.setBackground(new java.awt.Color(83, 115, 112));
-    btnGuardar.setForeground(new java.awt.Color(242, 242, 242));
-  }// GEN-LAST:event_btnGuardarMouseExited
+        btnGuardar.setBackground(new java.awt.Color(83, 115, 112));
+        btnGuardar.setForeground(new java.awt.Color(242, 242, 242));
+    }// GEN-LAST:event_btnGuardarMouseExited
 
-  private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGuardarActionPerformed
-    // TODO add your handling code here:
-  }// GEN-LAST:event_btnGuardarActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_btnGuardarActionPerformed
 
-  public JTextField getTxtApellido() {
-    return txtApellido;
-  }
+    public JTextField getTxtApellido() {
+        return txtApellido;
+    }
 
-  public void setTxtApellido(JTextField txtApellido) {
-    this.txtApellido = txtApellido;
-  }
+    public void setTxtApellido(JTextField txtApellido) {
+        this.txtApellido = txtApellido;
+    }
 
-  public JTextField getTxtCorreo() {
-    return txtCorreo;
-  }
+    public JTextField getTxtCorreo() {
+        return txtCorreo;
+    }
 
-  public void setTxtCorreo(JTextField txtCorreo) {
-    this.txtCorreo = txtCorreo;
-  }
+    public void setTxtCorreo(JTextField txtCorreo) {
+        this.txtCorreo = txtCorreo;
+    }
 
-  public JTextField getTxtDireccion() {
-    return txtDireccion;
-  }
+    public JTextField getTxtDireccion() {
+        return txtDireccion;
+    }
 
-  public void setTxtDireccion(JTextField txtDireccion) {
-    this.txtDireccion = txtDireccion;
-  }
+    public void setTxtDireccion(JTextField txtDireccion) {
+        this.txtDireccion = txtDireccion;
+    }
 
-  public DatePicker getTxtFechaNacimiento() {
-    return txtFechaNacimiento;
-  }
+    public DatePicker getTxtFechaNacimiento() {
+        return txtFechaNacimiento;
+    }
 
-  public void setTxtFechaNacimiento(DatePicker txtFechaNacimiento) {
-    this.txtFechaNacimiento = txtFechaNacimiento;
-  }
+    public void setTxtFechaNacimiento(DatePicker txtFechaNacimiento) {
+        this.txtFechaNacimiento = txtFechaNacimiento;
+    }
 
-  public JTextField getTxtIdentificacion() {
-    return txtIdentificacion;
-  }
+    public JTextField getTxtIdentificacion() {
+        return txtIdentificacion;
+    }
 
-  public void setTxtIdentificacion(JTextField txtIdentificacion) {
-    this.txtIdentificacion = txtIdentificacion;
-  }
+    public void setTxtIdentificacion(JTextField txtIdentificacion) {
+        this.txtIdentificacion = txtIdentificacion;
+    }
 
-  public JTextField getTxtNombre() {
-    return txtNombre;
-  }
+    public JTextField getTxtNombre() {
+        return txtNombre;
+    }
 
-  public void setTxtNombre(JTextField txtNombre) {
-    this.txtNombre = txtNombre;
-  }
+    public void setTxtNombre(JTextField txtNombre) {
+        this.txtNombre = txtNombre;
+    }
 
-  public JTextField getTxtTelefono() {
-    return txtTelefono;
-  }
+    public JTextField getTxtTelefono() {
+        return txtTelefono;
+    }
 
-  public void setTxtTelefono(JTextField txtTelefono) {
-    this.txtTelefono = txtTelefono;
-  }
+    public void setTxtTelefono(JTextField txtTelefono) {
+        this.txtTelefono = txtTelefono;
+    }
 
-  public JButton getBtnGuardar() {
-    return btnGuardar;
-  }
+    public JButton getBtnGuardar() {
+        return btnGuardar;
+    }
 
-  public void setBtnGuardar(JButton btnGuardar) {
-    this.btnGuardar = btnGuardar;
-  }
+    public void setBtnGuardar(JButton btnGuardar) {
+        this.btnGuardar = btnGuardar;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
@@ -433,7 +417,6 @@ public class usuarioCrearPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;

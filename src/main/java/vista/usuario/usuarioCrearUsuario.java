@@ -29,10 +29,10 @@ public class usuarioCrearUsuario extends javax.swing.JFrame {
     /**
      * Creates new form usuarioCrearPaciente
      */
-    public usuarioCrearUsuario() {
+    public usuarioCrearUsuario(Controlador controlador) {
         initComponents();
         this.controlador = controlador;
-        initComponents();
+        
 
         personaModel = new PersonaJson();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

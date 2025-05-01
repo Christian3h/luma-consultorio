@@ -43,7 +43,9 @@
     {
       "apellidos": "jTextField2",
       "fechaNacimiento": "2025-04-21",
-      "cedula": "456", "correo": "jTextField6", "direccion": "jTextField4",
+      "cedula": "456",
+      "correo": "jTextField6",
+      "direccion": "jTextField4",
       "id": 3,
       "telefono": "jTextField5",
       "rol": "paciente",
@@ -83,6 +85,18 @@
       "telefono": "123",
       "rol": "paciente",
       "nombres": "pepe"
+    },
+    {
+      "apellidos": "1243234",
+      "password": "123",
+      "fechaNacimiento": "2025-04-14",
+      "cedula": "1231234",
+      "correo": "123123",
+      "direccion": "123",
+      "id": 7,
+      "telefono": "123",
+      "rol": "usuario",
+      "nombres": "123"
     }
   ]
 }
