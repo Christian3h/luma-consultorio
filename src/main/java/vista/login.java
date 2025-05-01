@@ -145,7 +145,7 @@ public class login extends javax.swing.JFrame {
         jLabel1.setText("LUMA Ortodoncia y Odontología");
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon("/home/christian/NetBeansProjects/LUMA/src/main/java/assets/img/path1.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/path1.png"))); // NOI18N
 
         panelMover.setBackground(new java.awt.Color(83, 115, 112));
         panelMover.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {

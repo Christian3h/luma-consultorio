@@ -3,7 +3,6 @@ package controlador;
 import com.google.gson.Gson;
 import javax.swing.*;
 import java.awt.event.*;
-import vista.login;
 import vista.odontologo.odontologCrearOdontologo;
 import vista.usuario.usuarioCrearPaciente;
 import vista.usuario.usuarioCrearUsuario;
@@ -13,10 +12,12 @@ import modelo.Usuario;
 import modelo.PersonaJson;
 import org.json.JSONObject;
 import vista.components.menu;
+import vista.usuario.citasCrear;
 
 public class Controlador implements ActionListener {
+   
+    private citasCrear vistaCitas; // Nueva vista
 
-    private login vistaLogin;
     private usuarioCrearPaciente vistaUsuarioPaciente;
     private usuarioCrearUsuario vistaUsuarioCrear;
     private odontologCrearOdontologo vistaOdontologo;
@@ -27,70 +28,61 @@ public class Controlador implements ActionListener {
 
     public Controlador() {
         this.personaModel = new PersonaJson();
-        this.vistaLogin = new login();
-        this.vistaUsuarioPaciente = new usuarioCrearPaciente();
+        this.vistaUsuarioPaciente = new usuarioCrearPaciente(this);
         this.vistaUsuarioCrear = new usuarioCrearUsuario();
         this.vistaOdontologo = new odontologCrearOdontologo();
         configurarActionListeners();
+        mostrarMenuInicial();
     }
 
-    public void iniciar() {
-        vistaLogin.setLocationRelativeTo(null);
-        vistaLogin.setVisible(true);
+    public void iniciarOdontologo() {
+        vistaOdontologo.setLocationRelativeTo(null);
+        vistaOdontologo.setVisible(true);
+
+    }
+
+    public void iniciarUsuario() {
+        vistaUsuarioPaciente.setLocationRelativeTo(null);
+        vistaUsuarioPaciente.setVisible(true);
+
+    }
+
+
+    public void iniciarCitas() {
+        vistaCitas = new citasCrear(); // Instancia nueva
+        vistaCitas.setLocationRelativeTo(null);
+        vistaCitas.setVisible(true);
+
+        // Crear su controlador aquí
+        new CitasControlador(vistaCitas, personaModel);
+    }
+
+    public void iniciarUsuarioCrear() {
+        vistaUsuarioCrear.setLocationRelativeTo(null);
+        vistaUsuarioCrear.setVisible(true);
     }
 
     private void configurarActionListeners() {
-        vistaLogin.getButtonUser().addActionListener(this);
         vistaOdontologo.getBtnGuardar().addActionListener(this);
         vistaUsuarioPaciente.getBtnGuardar().addActionListener(this);
-        vistaUsuarioPaciente.getjButton1().addActionListener(this);
         vistaUsuarioCrear.getBtnGuardar().addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == vistaLogin.getButtonUser()) {
-            validarLogin();
-        } else if (e.getSource() == vistaOdontologo.getBtnGuardar()) {
+        if (e.getSource() == vistaOdontologo.getBtnGuardar()) {
             crearOdontologo();
         } else if (e.getSource() == vistaUsuarioPaciente.getBtnGuardar()) {
             crearPaciente();
         } else if (e.getSource() == vistaUsuarioCrear.getBtnGuardar()) {
             crearUsuario();
-        } else if (e.getSource() == vistaUsuarioPaciente.getjButton1()) {
-            vistaUsuarioCrear.setLocationRelativeTo(vistaUsuarioPaciente);
-            vistaUsuarioCrear.setVisible(true);
         }
     }
 
-    private void mostrarMenu(String rol) {
+    private void mostrarMenuInicial() {
         vistaMenu = new menu();
-        controladorMenu = new MenuControlador(vistaMenu, personaModel, rol);
-        //vistaMenu.setLocationRelativeTo(null);
+        controladorMenu = new MenuControlador(vistaMenu, personaModel, "usuario", this);
         vistaMenu.setVisible(true);
-    }
-
-    private void validarLogin() {
-        String user = vistaLogin.getNameUser().getText();
-        char[] pass = vistaLogin.getPasswordUser().getPassword();
-        String rol = personaModel.validarUsuario(user, new String(pass)).toLowerCase();
-
-        if (rol.equals("odontologo")) {
-            mostrarMenu(rol);
-            vistaOdontologo.setLocationRelativeTo(null);
-            vistaOdontologo.setVisible(true);
-            vistaLogin.setVisible(false);
-        } else if (rol.equals("usuario")) {
-            mostrarMenu(rol);
-            vistaUsuarioPaciente.setLocationRelativeTo(null);
-            vistaUsuarioPaciente.setVisible(true);
-            vistaLogin.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(vistaLogin,
-                    "Credenciales incorrectas",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
     }
 
     private void crearOdontologo() {

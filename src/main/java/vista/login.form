@@ -236,7 +236,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/home/christian/NetBeansProjects/LUMA/src/main/java/assets/img/path1.png"/>
+              <Image iconType="3" name="/path1.png"/>
             </Property>
           </Properties>
         </Component>

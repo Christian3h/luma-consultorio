@@ -1,9 +1,6 @@
 package controlador;
 
 import vista.components.menu;
-import vista.usuario.citasCrear;
-import vista.usuario.usuarioCrearPaciente;
-import vista.usuario.usuarioCrearUsuario;
 import modelo.PersonaJson;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,60 +9,51 @@ import javax.swing.SwingUtilities;
 
 public class MenuControlador {
 
-    private menu vistaMenu;
-    private PersonaJson modeloPersona;
-    private String rol;
+    private final menu vistaMenu;
+    private final PersonaJson modeloPersona;
+    private final String rol;
+    private final Controlador controlador;
 
-    public MenuControlador(menu vista, PersonaJson modelo, String rol) {
+    public MenuControlador(menu vista, PersonaJson modelo, String rol, Controlador controlador) {
         this.vistaMenu = vista;
         this.modeloPersona = modelo;
         this.rol = rol;
+        this.controlador = controlador;
+
         inicializarListeners();
     }
 
     private void inicializarListeners() {
-
         vistaMenu.getBtnCrearCitas().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Window window = SwingUtilities.getWindowAncestor(vistaMenu);
-                if (window != null) {
-                    window.dispose(); // Cierra la ventana actual
-                }
-
-                citasCrear ventanaCita = new citasCrear();
-                ventanaCita.setLocationRelativeTo(null);
-                ventanaCita.setVisible(true);
+                cerrarVentanaActual();
+                // Aquí puedes implementar controlador.iniciarCitas(); si lo agregas
+                controlador.iniciarCitas();
             }
         });
 
         vistaMenu.getBtnCrearPacentes().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Window window = SwingUtilities.getWindowAncestor(vistaMenu);
-                if (window != null) {
-                    window.dispose(); // Cierra la ventana actual
-                }
-
-                usuarioCrearPaciente ventanaPaciente = new usuarioCrearPaciente();
-                ventanaPaciente.setLocationRelativeTo(null);
-                ventanaPaciente.setVisible(true);
+                cerrarVentanaActual();
+                controlador.iniciarUsuario(); // ← se reutiliza la vista y sus listeners
             }
         });
 
         vistaMenu.getBtnCrearUsuarios().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Window window = SwingUtilities.getWindowAncestor(vistaMenu);
-                if (window != null) {
-                    window.dispose(); // Cierra la ventana actual
-                }
-
-                usuarioCrearUsuario ventanaUsuario = new usuarioCrearUsuario();
-                ventanaUsuario.setLocationRelativeTo(null);
-                ventanaUsuario.setVisible(true);
+                cerrarVentanaActual();
+                controlador.iniciarUsuarioCrear(); // ← debes agregar este método
             }
         });
     }
 
+    private void cerrarVentanaActual() {
+        Window window = SwingUtilities.getWindowAncestor(vistaMenu);
+        if (window != null) {
+            window.dispose();
+        }
+    }
 }
