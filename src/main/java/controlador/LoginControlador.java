@@ -47,7 +47,7 @@ public class LoginControlador implements ActionListener {
 
         if (rol.equals("odontologo")) {
             mostrarMenu(rol);
-            objC.iniciarOdontologo();
+            objC.iniciarOdontologoCrear(); // esto hay que cambiarlo cuando acabe de diase;ar el resto del menu jeje xd
             vistaLogin.setVisible(false);
         } else if (rol.equals("usuario")) {
             mostrarMenu(rol);

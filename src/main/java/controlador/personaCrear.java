@@ -4,7 +4,7 @@ package controlador;
  * @author christian
  */
 import javax.swing.JOptionPane;
-import vista.odontologo.odontologCrearOdontologo;
+import vista.usuario.odontologCrearOdontologo;
 import vista.usuario.usuarioCrearPaciente;
 import modelo.Paciente;
 import modelo.Odontologo;

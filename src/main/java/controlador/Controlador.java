@@ -3,7 +3,7 @@ package controlador;
 import com.google.gson.Gson;
 import javax.swing.*;
 import java.awt.event.*;
-import vista.odontologo.odontologCrearOdontologo;
+import vista.usuario.odontologCrearOdontologo;
 import vista.usuario.usuarioCrearPaciente;
 import vista.usuario.usuarioCrearUsuario;
 import modelo.Odontologo;
@@ -15,7 +15,7 @@ import vista.components.menu;
 import vista.usuario.citasCrear;
 
 public class Controlador implements ActionListener {
-   
+
     private citasCrear vistaCitas; // Nueva vista
 
     private usuarioCrearPaciente vistaUsuarioPaciente;
@@ -25,6 +25,7 @@ public class Controlador implements ActionListener {
     private final Gson gson = new Gson();
     private menu vistaMenu;
     private MenuControlador controladorMenu;
+    private CitasControlador citasControlador;
 
     public Controlador() {
         this.personaModel = new PersonaJson();
@@ -35,31 +36,27 @@ public class Controlador implements ActionListener {
         mostrarMenuInicial();
     }
 
-    public void iniciarOdontologo() {
+    public void iniciarOdontologoCrear() {
         vistaOdontologo.setLocationRelativeTo(null);
         vistaOdontologo.setVisible(true);
-
     }
 
     public void iniciarUsuario() {
         vistaUsuarioPaciente.setLocationRelativeTo(null);
         vistaUsuarioPaciente.setVisible(true);
-
     }
-
-
-    public void iniciarCitas() {
-        vistaCitas = new citasCrear(); // Instancia nueva
-        vistaCitas.setLocationRelativeTo(null);
-        vistaCitas.setVisible(true);
-
-        // Crear su controlador aquí
-        new CitasControlador(vistaCitas, personaModel);
-    }
+    
 
     public void iniciarUsuarioCrear() {
         vistaUsuarioCrear.setLocationRelativeTo(null);
         vistaUsuarioCrear.setVisible(true);
+    }
+
+    public void iniciarCitas() {
+        vistaCitas = new citasCrear(); // Instancia nueva
+        citasControlador = new CitasControlador(vistaCitas, personaModel); // ✅ GUÁRDALO
+        vistaCitas.setLocationRelativeTo(null);
+        vistaCitas.setVisible(true);
     }
 
     private void configurarActionListeners() {

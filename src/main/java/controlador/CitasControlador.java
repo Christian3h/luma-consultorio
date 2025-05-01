@@ -27,6 +27,7 @@ public class CitasControlador implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vistaCita.getButtonCrear()) {
+            System.out.println("Me acabaan de oprimir pero no creo que esto pase puta vida ");
             String documentoPaciente = vistaCita.getTxtPaciente().getText();
             String documentoOdontologo = vistaCita.getTxtOdontologo().getText();
             String fechaCita = vistaCita.getTxtFecha().getText();

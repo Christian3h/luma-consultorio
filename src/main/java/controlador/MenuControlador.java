@@ -9,17 +9,16 @@ import javax.swing.SwingUtilities;
 
 public class MenuControlador {
 
-    private final menu vistaMenu;
+    private menu vistaMenu;
     private final PersonaJson modeloPersona;
     private final String rol;
-    private final Controlador controlador;
+    private Controlador controlador;
 
     public MenuControlador(menu vista, PersonaJson modelo, String rol, Controlador controlador) {
         this.vistaMenu = vista;
         this.modeloPersona = modelo;
         this.rol = rol;
         this.controlador = controlador;
-
         inicializarListeners();
     }
 
@@ -28,6 +27,9 @@ public class MenuControlador {
             @Override
             public void mouseClicked(MouseEvent e) {
                 cerrarVentanaActual();
+                if (controlador == null) {
+                    controlador = new Controlador();
+                }
                 // Aquí puedes implementar controlador.iniciarCitas(); si lo agregas
                 controlador.iniciarCitas();
             }
@@ -36,8 +38,11 @@ public class MenuControlador {
         vistaMenu.getBtnCrearPacentes().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (controlador == null) {
+                    controlador = new Controlador();
+                }
                 cerrarVentanaActual();
-                controlador.iniciarUsuario(); // ← se reutiliza la vista y sus listeners
+                controlador.iniciarUsuario();
             }
         });
 
@@ -45,9 +50,24 @@ public class MenuControlador {
             @Override
             public void mouseClicked(MouseEvent e) {
                 cerrarVentanaActual();
+                if (controlador == null) {
+                    controlador = new Controlador();
+                }
                 controlador.iniciarUsuarioCrear(); // ← debes agregar este método
             }
         });
+
+        vistaMenu.getBtnCrearOdontologo().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cerrarVentanaActual();
+                if (controlador == null) {
+                    controlador = new Controlador();
+                }
+                controlador.iniciarOdontologoCrear();
+            }
+        });
+
     }
 
     private void cerrarVentanaActual() {

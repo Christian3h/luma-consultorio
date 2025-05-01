@@ -43,9 +43,7 @@
     {
       "apellidos": "jTextField2",
       "fechaNacimiento": "2025-04-21",
-      "cedula": "456",
-      "correo": "jTextField6",
-      "direccion": "jTextField4",
+      "cedula": "456", "correo": "jTextField6", "direccion": "jTextField4",
       "id": 3,
       "telefono": "jTextField5",
       "rol": "paciente",
@@ -74,6 +72,17 @@
       "telefono": "jTextField5",
       "rol": "odontologo",
       "nombres": "jTextField1"
+    },
+    {
+      "apellidos": "alvarez",
+      "fechaNacimiento": "2025-04-23",
+      "cedula": "911",
+      "correo": "123",
+      "direccion": "no se la mas cercana ",
+      "id": 6,
+      "telefono": "123",
+      "rol": "paciente",
+      "nombres": "pepe"
     }
   ]
 }
