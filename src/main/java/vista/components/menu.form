@@ -46,6 +46,7 @@
                       <Component id="btnCrearOdontologo" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnGestionarUsuarios" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnGestionarPacientes" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnGestionarCitas" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -74,6 +75,8 @@
                   <Component id="btnGestionarUsuarios" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnGestionarPacientes" min="-2" pref="42" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="btnGestionarCitas" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -138,6 +141,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="gestionar pacientes"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnGestionarCitas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="gestionar citas"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnGestionarCitasMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -115,7 +115,18 @@ public class MenuControlador {
                 vista.setVisible(true);
             }
         });
-
+        
+        vistaMenu.getBtnGestionarCitas().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cerrarVentanaActual();
+                if (controlador == null) {
+                    controlador = new Controlador();
+                }
+                controlador.iniciarGestionCitas();
+            }
+        });
+        
     }
 
     private void cerrarVentanaActual() {

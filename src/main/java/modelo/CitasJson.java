@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import util.JsonManager;
 import javax.swing.JOptionPane;
+import java.util.UUID;
 
 public class CitasJson {
 
@@ -35,9 +36,12 @@ public class CitasJson {
             return false;
         }
 
-        JSONArray citas = database.getJSONArray("citas");
+        // Generar ID único para la cita
+        String idCita = UUID.randomUUID().toString();
         JSONObject jsonCita = new JSONObject(new Gson().toJson(nuevaCita));
-        citas.put(jsonCita);
+        jsonCita.put("id", idCita);
+
+        database.getJSONArray("citas").put(jsonCita);
         JsonManager.saveJson(database);
         JOptionPane.showMessageDialog(null,
                 "Cita creada exitosamente.",
@@ -45,33 +49,55 @@ public class CitasJson {
         return true;
     }
 
-    public JSONArray obtenerCitasPorPaciente(String documentoPaciente) {
+    public JSONArray obtenerTodasLasCitas() {
+        return database.getJSONArray("citas");
+    }
+
+    public boolean eliminarCita(String idCita) {
+        JSONArray citas = database.getJSONArray("citas");
+
+        for (int i = 0; i < citas.length(); i++) {
+            JSONObject cita = citas.getJSONObject(i);
+            if (idCita.equals(cita.optString("id"))) {
+                citas.remove(i);
+                JsonManager.saveJson(database);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean editarCita(String idCita, Citas citaEditada) {
+        JSONArray citas = database.getJSONArray("citas");
+
+        for (int i = 0; i < citas.length(); i++) {
+            JSONObject cita = citas.getJSONObject(i);
+            if (idCita.equals(cita.optString("id"))) {
+                JSONObject nuevaCita = new JSONObject(new Gson().toJson(citaEditada));
+                nuevaCita.put("id", idCita); // mantener el mismo ID
+                citas.put(i, nuevaCita);
+                JsonManager.saveJson(database);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public JSONArray buscarCitasPorTexto(String filtro) {
+        filtro = filtro.toLowerCase();
         JSONArray citasFiltradas = new JSONArray();
         JSONArray citas = database.getJSONArray("citas");
 
         for (int i = 0; i < citas.length(); i++) {
-            JSONObject citaJson = citas.getJSONObject(i);
-            Citas cita = new Gson().fromJson(citaJson.toString(), Citas.class);
-            if (cita.getDocumentoPaciente().equals(documentoPaciente)) {
-                citasFiltradas.put(citaJson);
+            JSONObject cita = citas.getJSONObject(i);
+            String descripcion = cita.optString("documentoOdontologo", "").toLowerCase();
+            String fecha = cita.optString("documentoPaciente", "").toLowerCase();
+
+            if (descripcion.contains(filtro) || fecha.contains(filtro)) {
+                citasFiltradas.put(cita);
             }
         }
+
         return citasFiltradas;
     }
-
-    public JSONArray obtenerCitasPorOdontologo(String documentoOdontologo) {
-        JSONArray citasFiltradas = new JSONArray();
-        JSONArray citas = database.getJSONArray("citas");
-
-        for (int i = 0; i < citas.length(); i++) {
-            JSONObject citaJson = citas.getJSONObject(i);
-            Citas cita = new Gson().fromJson(citaJson.toString(), Citas.class);
-            if (cita.getDocumentoOdontologo().equals(documentoOdontologo)) {
-                citasFiltradas.put(citaJson);
-            }
-        }
-        return citasFiltradas;
-    }
-
-    // Puedes agregar más métodos para buscar, modificar o eliminar citas si lo necesitas
 }

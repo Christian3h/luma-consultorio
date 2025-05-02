@@ -83,6 +83,11 @@ public class PersonaJson {
 
     public boolean crearPersona(JSONObject datosPersona, String rol) {
         try {
+
+            // jata aqui no llega
+            System.out.println("Datos recibidos para crear persona:");
+            System.out.println(datosPersona.toString(2));
+
             if (existeCorreo(datosPersona.getString("correo"))) {
                 JOptionPane.showMessageDialog(null,
                         "El correo electrónico ya está registrado.",
@@ -98,8 +103,10 @@ public class PersonaJson {
             }
 
             int nuevoId = JsonManager.generarNuevoId("personas");
+
             System.out.println(nuevoId);
             datosPersona.put("id", nuevoId); // Aseguramos que el ID esté en los datos
+
             if (rol.equalsIgnoreCase("paciente")) {
                 System.out.println("Se creo un paciente lo que no deberia pasar si use un usuario");
                 Paciente paciente = new Paciente(
@@ -169,4 +176,18 @@ public class PersonaJson {
         System.out.println(jsonPersona);
         JsonManager.saveJson(database);
     }
+
+    public JSONObject buscarPorCedula(String cedula) {
+        JSONArray personas = database.getJSONArray("personas");
+
+        for (int i = 0; i < personas.length(); i++) {
+            JSONObject persona = personas.getJSONObject(i);
+            if (persona.has("cedula") && persona.getString("cedula").equals(cedula)) {
+                return persona;
+            }
+        }
+
+        return null; // Si no se encuentra
+    }
+
 }

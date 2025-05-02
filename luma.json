@@ -1,83 +1,55 @@
 {
   "citas": [
     {
-      "descripcion": "123",
-      "fecha": "24 de abril de 2025 12:12",
-      "documentoOdontologo": "123",
-      "documentoPaciente": "567"
+      "descripcion": "1",
+      "fecha": "17 de enero de 2025 12:32",
+      "id": "1b5180ce-0a17-43e5-93f9-1d33c405100c",
+      "documentoOdontologo": "12343245",
+      "documentoPaciente": "21324"
     },
     {
-      "descripcion": "234",
-      "fecha": "16 de abril de 2025 4:00\u202fa.\u202fm.",
-      "documentoOdontologo": "123",
-      "documentoPaciente": "567"
-    },
-    {
-      "descripcion": "123",
-      "fecha": "21 de abril de 2025 12:31",
-      "documentoOdontologo": "123",
-      "documentoPaciente": "456"
-    },
-    {
-      "descripcion": "123",
-      "fecha": "24 de abril de 2025 23:23",
-      "documentoOdontologo": "123",
-      "documentoPaciente": "456"
+      "descripcion": "dfvgtrhbdrvsetgrv\nergtsvchdrthcfgdfbdzsax\n",
+      "fecha": "1 de mayo de 2025 12:43",
+      "id": "2d00df26-cb05-4e51-a2ad-9af9f73009ee",
+      "documentoOdontologo": "12343245",
+      "documentoPaciente": "21324"
     }
   ],
   "personas": [
     {
-      "apellidos": "pedro",
-      "password": "adminO",
-      "fechaNacimiento": "2001-12-12",
-      "cedula": "123",
-      "correo": "asdf@asdf.com",
-      "direccion": "123",
-      "id": 1,
-      "telefono": "31780712",
-      "rol": "Odontologo",
-      "nombres": "adminO"
-    },
-    {
+      "apellidos": "123",
       "password": "adminU",
+      "fechaNacimiento": "2022-03-01",
       "cedula": "123",
+      "correo": "",
+      "direccion": "123",
       "id": 2,
+      "telefono": "1234",
       "rol": "Usuario",
       "nombres": "adminU"
     },
     {
-      "apellidos": "martinez",
-      "fechaNacimiento": "2025-04-21",
-      "cedula": "456",
-      "correo": "christian@gmail.com",
-      "direccion": "donde  las putas",
-      "telefono": "317900",
-      "rol": "paciente",
+      "apellidos": "456",
+      "password": "1",
+      "fechaNacimiento": "2025-05-13",
+      "cedula": "12343245",
+      "correo": "123425@234.com",
+      "direccion": "1234535",
+      "id": 3,
+      "telefono": "12345",
+      "rol": "Odontologo",
       "nombres": "christian"
     },
     {
-      "apellidos": "arismedy",
-      "password": "cualquiera",
-      "fechaNacimiento": "2001-06-07",
-      "cedula": "12345",
-      "correo": "asdf@ga.com",
-      "direccion": "avenida sempre viva",
-      "id": 4,
-      "telefono": "312123",
-      "rol": "Odontologo",
-      "nombres": "jorge"
-    },
-    {
-      "apellidos": "1243234",
-      "password": "123",
-      "fechaNacimiento": "2025-04-14",
-      "cedula": "1231234",
-      "correo": "123123",
+      "apellidos": "martinez",
+      "fechaNacimiento": "2025-05-19",
+      "cedula": "21324",
+      "correo": "123@213123.com",
       "direccion": "123",
-      "id": 7,
+      "id": 4,
       "telefono": "123",
-      "rol": "usuario",
-      "nombres": "123"
+      "rol": "paciente",
+      "nombres": "Christian"
     }
   ]
 }

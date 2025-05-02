@@ -40,6 +40,7 @@ public class menu extends javax.swing.JPanel {
         btnGestionarUsuarios = new javax.swing.JButton();
         btnGestionarOdontologos = new javax.swing.JButton();
         btnGestionarPacientes = new javax.swing.JButton();
+        btnGestionarCitas = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(143, 166, 143));
 
@@ -63,6 +64,13 @@ public class menu extends javax.swing.JPanel {
 
         btnGestionarPacientes.setText("gestionar pacientes");
 
+        btnGestionarCitas.setText("gestionar citas");
+        btnGestionarCitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGestionarCitasMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -76,7 +84,8 @@ public class menu extends javax.swing.JPanel {
                     .addComponent(btnCrearUsuaros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCrearOdontologo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGestionarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGestionarPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnGestionarPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGestionarCitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -100,6 +109,8 @@ public class menu extends javax.swing.JPanel {
                 .addComponent(btnGestionarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGestionarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnGestionarCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -119,6 +130,10 @@ public class menu extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGestionarCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarCitasMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGestionarCitasMouseClicked
 
 
     public JButton getBtnCrearCitas() {
@@ -176,6 +191,14 @@ public class menu extends javax.swing.JPanel {
     public void setBtnGestionarUsuarios(JButton btnGestionarUsuarios) {
         this.btnGestionarUsuarios = btnGestionarUsuarios;
     }
+
+    public JButton getBtnGestionarCitas() {
+        return btnGestionarCitas;
+    }
+
+    public void setBtnGestionarCitas(JButton btnGestionarCitas) {
+        this.btnGestionarCitas = btnGestionarCitas;
+    }
     
     
     
@@ -185,6 +208,7 @@ public class menu extends javax.swing.JPanel {
     private javax.swing.JButton btnCrearOdontologo;
     private javax.swing.JButton btnCrearPacentes;
     private javax.swing.JButton btnCrearUsuaros;
+    private javax.swing.JButton btnGestionarCitas;
     private javax.swing.JButton btnGestionarOdontologos;
     private javax.swing.JButton btnGestionarPacientes;
     private javax.swing.JButton btnGestionarUsuarios;

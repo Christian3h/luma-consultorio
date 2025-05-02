@@ -1,11 +1,12 @@
 package modelo;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import util.JsonManager;
 
-import java.util.ArrayList;
+import util.JsonManager;
 import java.util.List;
+import java.util.ArrayList;
+import org.json.JSONObject;
+import org.json.JSONArray;
+
 
 public class AdministrarPersonaJson {
 

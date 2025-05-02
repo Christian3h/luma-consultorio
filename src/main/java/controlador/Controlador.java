@@ -1,39 +1,51 @@
 package controlador;
 
+import com.github.lgooddatepicker.components.DatePicker;
 import com.google.gson.Gson;
 import javax.swing.*;
 import java.awt.event.*;
-import vista.usuario.odontologCrearOdontologo;
-import vista.usuario.usuarioCrearPaciente;
-import vista.usuario.usuarioCrearUsuario;
-import modelo.Odontologo;
-import modelo.Paciente;
-import modelo.Usuario;
-import modelo.PersonaJson;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Pattern;
+import vista.usuario.*;
+import modelo.*;
 import org.json.JSONObject;
 import vista.components.menu;
-import vista.usuario.citasCrear;
+import java.time.format.DateTimeFormatter;
+import vista.usuario.citasGestionar;
 
 public class Controlador implements ActionListener {
 
-    private citasCrear vistaCitas; // Nueva vista
-
+    // Constantes para validación
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
+    private static final Pattern NUMERIC_PATTERN = Pattern.compile("\\d+");
+    private static final Pattern DATE_PATTERN = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    // Vistas
+    private citasGestionar vistaGestion;
+    private citasCrear vistaCitas;
     private usuarioCrearPaciente vistaUsuarioPaciente;
     private usuarioCrearUsuario vistaUsuarioCrear;
     private odontologCrearOdontologo vistaOdontologo;
-    private PersonaJson personaModel;
-    private final Gson gson = new Gson();
     private menu vistaMenu;
+
+    // Modelos y controladores
+    private final PersonaJson personaModel;
+    private final Gson gson = new Gson();
     private MenuControlador controladorMenu;
     private CitasControlador citasControlador;
 
     public Controlador() {
         this.personaModel = new PersonaJson();
+        inicializarVistas();
+        configurarActionListeners();
+    }
+
+    private void inicializarVistas() {
         this.vistaUsuarioPaciente = new usuarioCrearPaciente(this);
         this.vistaUsuarioCrear = new usuarioCrearUsuario(this);
         this.vistaOdontologo = new odontologCrearOdontologo(this);
-        configurarActionListeners();
-        // mostrarMenuInicial();
     }
 
     private void configurarActionListeners() {
@@ -42,26 +54,34 @@ public class Controlador implements ActionListener {
         vistaUsuarioCrear.getBtnGuardar().addActionListener(this);
     }
 
+    // Métodos para iniciar vistas
     public void iniciarOdontologoCrear() {
-        vistaOdontologo.setLocationRelativeTo(null);
-        vistaOdontologo.setVisible(true);
+        mostrarVista(vistaOdontologo);
     }
 
     public void iniciarUsuario() {
-        vistaUsuarioPaciente.setLocationRelativeTo(null);
-        vistaUsuarioPaciente.setVisible(true);
+        mostrarVista(vistaUsuarioPaciente);
     }
 
     public void iniciarUsuarioCrear() {
-        vistaUsuarioCrear.setLocationRelativeTo(null);
-        vistaUsuarioCrear.setVisible(true);
+        mostrarVista(vistaUsuarioCrear);
     }
 
     public void iniciarCitas() {
-        vistaCitas = new citasCrear(); // Instancia nueva
-        citasControlador = new CitasControlador(vistaCitas, personaModel); // ✅ GUÁRDALO
-        vistaCitas.setLocationRelativeTo(null);
-        vistaCitas.setVisible(true);
+        vistaCitas = new citasCrear();
+        citasControlador = new CitasControlador(vistaCitas, personaModel);
+        mostrarVista(vistaCitas);
+    }
+
+    public void iniciarGestionCitas() {
+        vistaGestion = new citasGestionar();
+        citasControlador = new CitasControlador(vistaGestion, personaModel);
+        mostrarVista(vistaGestion);
+    }
+
+    private void mostrarVista(JFrame vista) {
+        vista.setLocationRelativeTo(null);
+        vista.setVisible(true);
     }
 
     @Override
@@ -75,155 +95,165 @@ public class Controlador implements ActionListener {
         }
     }
 
-    private void mostrarMenuInicial() {
-        vistaMenu = new menu();
-        controladorMenu = new MenuControlador(vistaMenu, personaModel, "usuario", this);
-        vistaMenu.setVisible(true);
-    }
-
+    // Métodos para creación de entidades
     private void crearOdontologo() {
+        if (!validarCamposOdontologo()) {
+            return;
+        }
+
         String correo = vistaOdontologo.getTxtCorreo().getText();
         String identificacion = vistaOdontologo.getTxtIdentificacion().getText();
 
-        if (personaModel.existeCorreo(correo)) {
-            mostrarMensajeError("El correo electrónico ya está registrado.", vistaOdontologo);
+        if (!validarDatosUnicos(correo, identificacion, vistaOdontologo)) {
             return;
         }
 
-        if (personaModel.existeIdentificacion(identificacion)) {
-            mostrarMensajeError("La cédula ya está registrada.", vistaOdontologo);
-            return;
-        }
-
-        try {
-            if (validarCamposOdontologo()) {
-                Odontologo odontologo = crearObjetoOdontologo();
-                JSONObject jsonOdontologo = convertirAJsonObject(odontologo);
-                boolean guardado = personaModel.crearPersona(jsonOdontologo, "odontologo");
-
-                if (guardado) {
-                    mostrarMensajeExito("Odontólogo guardado correctamente", vistaOdontologo);
-                    limpiarFormularioOdontologo();
-                } else {
-                    mostrarMensajeError("Error al guardar el odontólogo", vistaOdontologo);
-                }
-            }else{
-                mostrarMensajeError("Todos los campos son obligatorios", vistaOdontologo);
-            }
-        } catch (Exception ex) {
-            manejarError(ex, vistaOdontologo);
-        }
+        procesarGuardado(crearObjetoOdontologo(), "odontologo", vistaOdontologo);
     }
 
     private void crearUsuario() {
+        if (!validarCamposUsuario()) {
+            return;
+        }
+
         String correo = vistaUsuarioCrear.getTxtCorreo().getText();
         String identificacion = vistaUsuarioCrear.getTxtIdentificacion().getText();
 
-        if (personaModel.existeCorreo(correo)) {
-            mostrarMensajeError("El correo electrónico ya está registrado.", vistaUsuarioCrear);
+        if (!validarDatosUnicos(correo, identificacion, vistaUsuarioCrear)) {
             return;
         }
 
-        if (personaModel.existeIdentificacion(identificacion)) {
-            mostrarMensajeError("La cédula ya está registrada.", vistaUsuarioCrear);
-            return;
-        }
-
-        try {
-            if (validarCamposUsuario()) {
-                Usuario usuario = crearObjetoUsuario();
-                JSONObject jsonUsuario = convertirAJsonObject(usuario);
-                boolean guardado = personaModel.crearPersona(jsonUsuario, "usuario");
-
-                if (guardado) {
-                    mostrarMensajeExito("Usuario guardado correctamente", vistaUsuarioCrear);
-                    limpiarFormularioUsuario();
-                } else {
-                    mostrarMensajeError("Error al guardar el usuario", vistaUsuarioCrear);
-                }
-            }else{
-                mostrarMensajeError("Todos los campos son obligatorios", vistaUsuarioCrear);
-            }
-        } catch (Exception ex) {
-            manejarError(ex, vistaUsuarioCrear);
-        }
+        procesarGuardado(crearObjetoUsuario(), "usuario", vistaUsuarioCrear);
     }
 
     private void crearPaciente() {
+        if (!validarCamposPaciente()) {
+            return;
+        }
+
         String correo = vistaUsuarioPaciente.getTxtCorreo().getText();
         String identificacion = vistaUsuarioPaciente.getTxtIdentificacion().getText();
 
-        if (personaModel.existeCorreo(correo)) {
-            mostrarMensajeError("El correo electrónico ya está registrado.", vistaUsuarioPaciente);
+        if (!validarDatosUnicos(correo, identificacion, vistaUsuarioPaciente)) {
             return;
         }
 
-        if (personaModel.existeIdentificacion(identificacion)) {
-            mostrarMensajeError("La cédula ya está registrada.", vistaUsuarioPaciente);
-            return;
-        }
-
-        try {
-            if (validarCamposPaciente()) {
-                Paciente paciente = crearObjetoPaciente();
-                JSONObject jsonPaciente = convertirAJsonObject(paciente);
-                boolean guardado = personaModel.crearPersona(jsonPaciente, "paciente");
-
-                if (guardado) {
-                    mostrarMensajeExito("Paciente guardado correctamente", vistaUsuarioPaciente);
-                    limpiarFormularioPaciente();
-                } else {
-                    mostrarMensajeError("Error al guardar el paciente", vistaUsuarioPaciente);
-                }
-            }else{
-                mostrarMensajeError("Todos los campos son obligatorios", vistaUsuarioCrear);
-            }
-        } catch (Exception ex) {
-            manejarError(ex, vistaUsuarioPaciente);
-        }
+        procesarGuardado(crearObjetoPaciente(), "paciente", vistaUsuarioPaciente);
     }
 
+    // Métodos de validación mejorados
     private boolean validarCamposOdontologo() {
-        return !vistaOdontologo.getTxtNombre().getText().isEmpty()
-                && !vistaOdontologo.getTxtApellido().getText().isEmpty()
-                && !vistaOdontologo.getTxtIdentificacion().getText().isEmpty()
-                && (vistaOdontologo.getTxtFechaNacimiento() != null && vistaOdontologo.getTxtFechaNacimiento().getDate() != null)
-                && !vistaOdontologo.getTxtDireccion().getText().isEmpty()
-                && !vistaOdontologo.getTxtTelefono().getText().isEmpty()
-                && !vistaOdontologo.getTxtCorreo().getText().isEmpty()
-                && vistaOdontologo.getTxtPassword().getPassword().length > 0;
+        return validarCampoTexto(vistaOdontologo.getTxtNombre(), "nombre", vistaOdontologo)
+                && validarCampoTexto(vistaOdontologo.getTxtApellido(), "apellido", vistaOdontologo)
+                && validarIdentificacion(vistaOdontologo.getTxtIdentificacion(), vistaOdontologo)
+                && validarFechaNacimiento(vistaOdontologo.getTxtFechaNacimiento(), vistaOdontologo)
+                && validarCampoTexto(vistaOdontologo.getTxtDireccion(), "dirección", vistaOdontologo)
+                && validarTelefono(vistaOdontologo.getTxtTelefono(), vistaOdontologo)
+                && validarCorreo(vistaOdontologo.getTxtCorreo(), vistaOdontologo)
+                && validarPassword(vistaOdontologo.getTxtPassword(), vistaOdontologo);
     }
 
     private boolean validarCamposUsuario() {
-        return !vistaUsuarioCrear.getTxtNombre().getText().isEmpty()
-                && !vistaUsuarioCrear.getTxtApellido().getText().isEmpty()
-                && !vistaUsuarioCrear.getTxtIdentificacion().getText().isEmpty()
-                && (vistaUsuarioCrear.getTxtFechaNacimiento() != null && vistaUsuarioCrear.getTxtFechaNacimiento().getDate() != null)
-                && !vistaUsuarioCrear.getTxtDireccion().getText().isEmpty()
-                && !vistaUsuarioCrear.getTxtTelefono().getText().isEmpty()
-                && !vistaUsuarioCrear.getTxtCorreo().getText().isEmpty()
-                && vistaUsuarioCrear.getTxtPassword().getPassword().length > 0;
+        return validarCampoTexto(vistaUsuarioCrear.getTxtNombre(), "nombre", vistaUsuarioCrear)
+                && validarCampoTexto(vistaUsuarioCrear.getTxtApellido(), "apellido", vistaUsuarioCrear)
+                && validarIdentificacion(vistaUsuarioCrear.getTxtIdentificacion(), vistaUsuarioCrear)
+                && validarFechaNacimiento(vistaUsuarioCrear.getTxtFechaNacimiento(), vistaUsuarioCrear)
+                && validarCampoTexto(vistaUsuarioCrear.getTxtDireccion(), "dirección", vistaUsuarioCrear)
+                && validarTelefono(vistaUsuarioCrear.getTxtTelefono(), vistaUsuarioCrear)
+                && validarCorreo(vistaUsuarioCrear.getTxtCorreo(), vistaUsuarioCrear)
+                && validarPassword(vistaUsuarioCrear.getTxtPassword(), vistaUsuarioCrear);
     }
 
     private boolean validarCamposPaciente() {
-        return !vistaUsuarioPaciente.getTxtNombre().getText().isEmpty()
-                && !vistaUsuarioPaciente.getTxtApellido().getText().isEmpty()
-                && !vistaUsuarioPaciente.getTxtIdentificacion().getText().isEmpty()
-                && (vistaUsuarioPaciente.getTxtFechaNacimiento() != null && vistaUsuarioPaciente.getTxtFechaNacimiento().getDate() != null)
-                && !vistaUsuarioPaciente.getTxtDireccion().getText().isEmpty()
-                && !vistaUsuarioPaciente.getTxtTelefono().getText().isEmpty()
-                && !vistaUsuarioPaciente.getTxtCorreo().getText().isEmpty();
+        return validarCampoTexto(vistaUsuarioPaciente.getTxtNombre(), "nombre", vistaUsuarioPaciente)
+                && validarCampoTexto(vistaUsuarioPaciente.getTxtApellido(), "apellido", vistaUsuarioPaciente)
+                && validarIdentificacion(vistaUsuarioPaciente.getTxtIdentificacion(), vistaUsuarioPaciente)
+                && validarFechaNacimiento(vistaUsuarioPaciente.getTxtFechaNacimiento(), vistaUsuarioPaciente)
+                && validarCampoTexto(vistaUsuarioPaciente.getTxtDireccion(), "dirección", vistaUsuarioPaciente)
+                && validarTelefono(vistaUsuarioPaciente.getTxtTelefono(), vistaUsuarioPaciente)
+                && validarCorreo(vistaUsuarioPaciente.getTxtCorreo(), vistaUsuarioPaciente);
     }
 
+    // Métodos de validación específicos
+    private boolean validarCampoTexto(JTextField campo, String nombreCampo, JFrame parent) {
+        if (campo.getText().trim().isEmpty()) {
+            mostrarMensajeError("El " + nombreCampo + " no puede estar vacío.", parent);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarIdentificacion(JTextField campo, JFrame parent) {
+        String texto = campo.getText().trim();
+        if (texto.isEmpty()) {
+            mostrarMensajeError("La identificación no puede estar vacía.", parent);
+            return false;
+        }
+        if (!NUMERIC_PATTERN.matcher(texto).matches()) {
+            mostrarMensajeError("La identificación debe contener solo números.", parent);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarFechaNacimiento(DatePicker campo, JFrame parent) {
+        if (campo.getDate() == null) {
+            mostrarMensajeError("La fecha de nacimiento no puede estar vacía.", parent);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarTelefono(JTextField campo, JFrame parent) {
+        String texto = campo.getText().trim();
+        if (texto.isEmpty()) {
+            mostrarMensajeError("El teléfono no puede estar vacío.", parent);
+            return false;
+        }
+        if (!NUMERIC_PATTERN.matcher(texto).matches()) {
+            mostrarMensajeError("El teléfono debe contener solo números.", parent);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarCorreo(JTextField campo, JFrame parent) {
+        String texto = campo.getText().trim();
+        if (texto.isEmpty()) {
+            mostrarMensajeError("El correo electrónico no puede estar vacío.", parent);
+            return false;
+        }
+        if (!EMAIL_PATTERN.matcher(texto).matches()) {
+            mostrarMensajeError("Por favor, ingrese un correo electrónico válido (ejemplo: usuario@dominio.com).", parent);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarPassword(JPasswordField campo, JFrame parent) {
+        if (campo.getPassword().length == 0) {
+            mostrarMensajeError("La contraseña no puede estar vacía.", parent);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarDatosUnicos(String correo, String identificacion, JFrame parent) {
+        if (personaModel.existeCorreo(correo)) {
+            mostrarMensajeError("El correo electrónico ya está registrado.", parent);
+            return false;
+        }
+        if (personaModel.existeIdentificacion(identificacion)) {
+            mostrarMensajeError("La cédula ya está registrada.", parent);
+            return false;
+        }
+        return true;
+    }
+
+    // Métodos para creación de objetos del modelo
     private Odontologo crearObjetoOdontologo() {
         Odontologo o = new Odontologo();
-        o.setNombres(vistaOdontologo.getTxtNombre().getText());
-        o.setApellidos(vistaOdontologo.getTxtApellido().getText());
-        o.setCedula(vistaOdontologo.getTxtIdentificacion().getText());
-        o.setFechaNacimiento(vistaOdontologo.getTxtFechaNacimiento().getDate().toString());
-        o.setDireccion(vistaOdontologo.getTxtDireccion().getText());
-        o.setTelefono(vistaOdontologo.getTxtTelefono().getText());
-        o.setCorreo(vistaOdontologo.getTxtCorreo().getText());
+        setDatosPersonaBasicos(o, vistaOdontologo);
         o.setPassword(new String(vistaOdontologo.getTxtPassword().getPassword()));
         o.setRol("odontologo");
         return o;
@@ -231,13 +261,7 @@ public class Controlador implements ActionListener {
 
     private Usuario crearObjetoUsuario() {
         Usuario u = new Usuario();
-        u.setNombres(vistaUsuarioCrear.getTxtNombre().getText());
-        u.setApellidos(vistaUsuarioCrear.getTxtApellido().getText());
-        u.setCedula(vistaUsuarioCrear.getTxtIdentificacion().getText());
-        u.setFechaNacimiento(vistaUsuarioCrear.getTxtFechaNacimiento().getDate().toString());
-        u.setDireccion(vistaUsuarioCrear.getTxtDireccion().getText());
-        u.setTelefono(vistaUsuarioCrear.getTxtTelefono().getText());
-        u.setCorreo(vistaUsuarioCrear.getTxtCorreo().getText());
+        setDatosPersonaBasicos(u, vistaUsuarioCrear);
         u.setPassword(new String(vistaUsuarioCrear.getTxtPassword().getPassword()));
         u.setRol("usuario");
         return u;
@@ -245,51 +269,91 @@ public class Controlador implements ActionListener {
 
     private Paciente crearObjetoPaciente() {
         Paciente p = new Paciente();
-        p.setNombres(vistaUsuarioPaciente.getTxtNombre().getText());
-        p.setApellidos(vistaUsuarioPaciente.getTxtApellido().getText());
-        p.setCedula(vistaUsuarioPaciente.getTxtIdentificacion().getText());
-        p.setFechaNacimiento(vistaUsuarioPaciente.getTxtFechaNacimiento().getDate().toString());
-        p.setDireccion(vistaUsuarioPaciente.getTxtDireccion().getText());
-        p.setTelefono(vistaUsuarioPaciente.getTxtTelefono().getText());
-        p.setCorreo(vistaUsuarioPaciente.getTxtCorreo().getText());
+        setDatosPersonaBasicos(p, vistaUsuarioPaciente);
         p.setRol("paciente");
         return p;
     }
 
-    private JSONObject convertirAJsonObject(Object obj) {
-        return new JSONObject(gson.toJson(obj));
+    private void setDatosPersonaBasicos(Persona persona, JFrame vista) {
+        if (vista instanceof odontologCrearOdontologo) {
+            odontologCrearOdontologo v = (odontologCrearOdontologo) vista;
+            persona.setNombres(v.getTxtNombre().getText());
+            persona.setApellidos(v.getTxtApellido().getText());
+            persona.setCedula(v.getTxtIdentificacion().getText());
+            persona.setFechaNacimiento(v.getTxtFechaNacimiento().getDate().format(DATE_FORMATTER));
+            persona.setDireccion(v.getTxtDireccion().getText());
+            persona.setTelefono(v.getTxtTelefono().getText());
+            persona.setCorreo(v.getTxtCorreo().getText());
+        } else if (vista instanceof usuarioCrearUsuario) {
+            usuarioCrearUsuario v = (usuarioCrearUsuario) vista;
+            persona.setNombres(v.getTxtNombre().getText());
+            persona.setApellidos(v.getTxtApellido().getText());
+            persona.setCedula(v.getTxtIdentificacion().getText());
+            persona.setFechaNacimiento(v.getTxtFechaNacimiento().getDate().format(DATE_FORMATTER));
+            persona.setDireccion(v.getTxtDireccion().getText());
+            persona.setTelefono(v.getTxtTelefono().getText());
+            persona.setCorreo(v.getTxtCorreo().getText());
+        } else if (vista instanceof usuarioCrearPaciente) {
+            usuarioCrearPaciente v = (usuarioCrearPaciente) vista;
+            persona.setNombres(v.getTxtNombre().getText());
+            persona.setApellidos(v.getTxtApellido().getText());
+            persona.setCedula(v.getTxtIdentificacion().getText());
+            persona.setFechaNacimiento(v.getTxtFechaNacimiento().getDate().format(DATE_FORMATTER));
+            persona.setDireccion(v.getTxtDireccion().getText());
+            persona.setTelefono(v.getTxtTelefono().getText());
+            persona.setCorreo(v.getTxtCorreo().getText());
+        }
     }
 
-    private void limpiarFormularioOdontologo() {
-        vistaOdontologo.getTxtNombre().setText("");
-        vistaOdontologo.getTxtApellido().setText("");
-        vistaOdontologo.getTxtIdentificacion().setText("");
-        vistaOdontologo.getTxtFechaNacimiento().setDate(null);
-        vistaOdontologo.getTxtDireccion().setText("");
-        vistaOdontologo.getTxtTelefono().setText("");
-        vistaOdontologo.getTxtCorreo().setText("");
-        vistaOdontologo.getTxtPassword().setText("");
+    // Métodos utilitarios
+    private void procesarGuardado(Object entidad, String rol, JFrame vista) {
+        try {
+            JSONObject jsonEntidad = new JSONObject(gson.toJson(entidad));
+            boolean guardado = personaModel.crearPersona(jsonEntidad, rol);
+
+            if (guardado) {
+                mostrarMensajeExito(rol.substring(0, 1).toUpperCase() + rol.substring(1)
+                        + " guardado correctamente", vista);
+                limpiarFormulario(vista);
+            } else {
+                mostrarMensajeError("Error al guardar el " + rol, vista);
+            }
+        } catch (Exception ex) {
+            manejarError(ex, vista);
+        }
     }
 
-    private void limpiarFormularioUsuario() {
-        vistaUsuarioCrear.getTxtNombre().setText("");
-        vistaUsuarioCrear.getTxtApellido().setText("");
-        vistaUsuarioCrear.getTxtIdentificacion().setText("");
-        vistaUsuarioCrear.getTxtFechaNacimiento().setDate(null);
-        vistaUsuarioCrear.getTxtDireccion().setText("");
-        vistaUsuarioCrear.getTxtTelefono().setText("");
-        vistaUsuarioCrear.getTxtCorreo().setText("");
-        vistaUsuarioCrear.getTxtPassword().setText("");
-    }
-
-    private void limpiarFormularioPaciente() {
-        vistaUsuarioPaciente.getTxtNombre().setText("");
-        vistaUsuarioPaciente.getTxtApellido().setText("");
-        vistaUsuarioPaciente.getTxtIdentificacion().setText("");
-        vistaUsuarioPaciente.getTxtFechaNacimiento().setDate(null);
-        vistaUsuarioPaciente.getTxtDireccion().setText("");
-        vistaUsuarioPaciente.getTxtTelefono().setText("");
-        vistaUsuarioPaciente.getTxtCorreo().setText("");
+    private void limpiarFormulario(JFrame vista) {
+        if (vista instanceof odontologCrearOdontologo) {
+            odontologCrearOdontologo v = (odontologCrearOdontologo) vista;
+            v.getTxtNombre().setText("");
+            v.getTxtApellido().setText("");
+            v.getTxtIdentificacion().setText("");
+            v.getTxtFechaNacimiento().setDate(null);
+            v.getTxtDireccion().setText("");
+            v.getTxtTelefono().setText("");
+            v.getTxtCorreo().setText("");
+            v.getTxtPassword().setText("");
+        } else if (vista instanceof usuarioCrearUsuario) {
+            usuarioCrearUsuario v = (usuarioCrearUsuario) vista;
+            v.getTxtNombre().setText("");
+            v.getTxtApellido().setText("");
+            v.getTxtIdentificacion().setText("");
+            v.getTxtFechaNacimiento().setDate(null);
+            v.getTxtDireccion().setText("");
+            v.getTxtTelefono().setText("");
+            v.getTxtCorreo().setText("");
+            v.getTxtPassword().setText("");
+        } else if (vista instanceof usuarioCrearPaciente) {
+            usuarioCrearPaciente v = (usuarioCrearPaciente) vista;
+            v.getTxtNombre().setText("");
+            v.getTxtApellido().setText("");
+            v.getTxtIdentificacion().setText("");
+            v.getTxtFechaNacimiento().setDate(null);
+            v.getTxtDireccion().setText("");
+            v.getTxtTelefono().setText("");
+            v.getTxtCorreo().setText("");
+        }
     }
 
     private void mostrarMensajeExito(String mensaje, JFrame parent) {
