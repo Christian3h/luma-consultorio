@@ -1,0 +1,124 @@
+{
+  "citas": [
+    {
+      "descripcion": "esto es una descripcion",
+      "fecha": "2025-04-17 03:00",
+      "documentoOdontologo": "12345",
+      "documentoPaciente": "567"
+    },
+    {
+      "descripcion": "123",
+      "fecha": "21 de abril de 2025 12:31",
+      "documentoOdontologo": "123",
+      "documentoPaciente": "456"
+    },
+    {
+      "descripcion": "123",
+      "fecha": "2025-04-24 23:23",
+      "documentoOdontologo": "123",
+      "documentoPaciente": "456"
+    },
+    {
+      "descripcion": "limpieza dental ",
+      "fecha": "19 de mayo de 2025 05:30",
+      "documentoOdontologo": "12345",
+      "documentoPaciente": "456"
+    }
+  ],
+  "consultas": [
+    {
+      "fecha": "2025-05-05",
+      "valor": "123456",
+      "procedimiento": "limpieza",
+      "medicamentos": "acetaminofen"
+    },
+    {
+      "fecha": "2025-05-05",
+      "valor": "123456",
+      "procedimiento": "limpieza",
+      "medicamentos": "acetaminofen"
+    },
+    {
+      "fecha": "2025-05-06",
+      "valor": "12",
+      "procedimiento": "esto es un procedimiento",
+      "medicamentos": "estos son medicamentos"
+    },
+    {
+      "fecha": "2025-05-06",
+      "valor": "12",
+      "procedimiento": "esto es un procedimiento",
+      "medicamentos": "estos son medicamentos"
+    },
+    {
+      "fecha": "2025-05-06",
+      "valor": "43",
+      "documentoOdontologo": "123",
+      "procedimiento": "12",
+      "medicamentos": "32",
+      "documentoPaciente": "456"
+    },
+    {
+      "fecha": "2025-05-06",
+      "valor": "43",
+      "documentoOdontologo": "123",
+      "procedimiento": "12",
+      "medicamentos": "32",
+      "documentoPaciente": "456"
+    }
+  ],
+  "personas": [
+    {
+      "apellidos": "pedro",
+      "password": "adminO",
+      "cedula": "123",
+      "correo": "asdf@asdf.com",
+      "direccion": "123",
+      "id": 1,
+      "telefono": "31780711",
+      "rol": "Odontologo",
+      "nombres": "adminO"
+    },
+    {
+      "password": "adminU",
+      "cedula": "123",
+      "id": 2,
+      "rol": "Usuario",
+      "nombres": "adminU"
+    },
+    {
+      "apellidos": "martinez",
+      "fechaNacimiento": "2025-04-21",
+      "cedula": "456",
+      "correo": "christian@gmail.com",
+      "direccion": "donde  las putas",
+      "telefono": "317900",
+      "rol": "paciente",
+      "nombres": "christian"
+    },
+    {
+      "apellidos": "arismedy",
+      "password": "cualquiera",
+      "fechaNacimiento": "2001-06-07",
+      "cedula": "12345",
+      "correo": "asdf@ga.com",
+      "direccion": "avenia sempre viva",
+      "id": 4,
+      "telefono": "312123",
+      "rol": "Odontologo",
+      "nombres": "jorge"
+    },
+    {
+      "apellidos": "1243234",
+      "password": "123",
+      "fechaNacimiento": "2025-04-14",
+      "cedula": "1231234",
+      "correo": "123123",
+      "direccion": "123",
+      "id": 7,
+      "telefono": "123",
+      "rol": "usuario",
+      "nombres": "123"
+    }
+  ]
+}
