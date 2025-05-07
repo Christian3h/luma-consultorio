@@ -64,7 +64,6 @@ public class Controlador implements ActionListener {
         vistaOdontologo.setLocationRelativeTo(null);
         vistaOdontologo.setVisible(true);
         String id = Sesion.getInstancia().getIdUsuario();
-        System.out.println("El usuario conectado es: " + id);
     }
     
     @Override

@@ -3,8 +3,8 @@
     {
       "descripcion": "esto es una descripcion",
       "fecha": "2025-04-17 03:00",
-      "documentoOdontologo": "12345",
-      "documentoPaciente": "567"
+      "documentoOdontologo": "123",
+      "documentoPaciente": "456"
     },
     {
       "descripcion": "123",
@@ -92,6 +92,7 @@
       "cedula": "456",
       "correo": "christian@gmail.com",
       "direccion": "no lo se rick",
+      "id": 1000,
       "telefono": "317900",
       "rol": "paciente",
       "nombres": "christian"
@@ -119,6 +120,18 @@
       "telefono": "123",
       "rol": "Usuario",
       "nombres": "123"
+    },
+    {
+      "apellidos": "098098",
+      "password": "098",
+      "fechaNacimiento": "2025-05-20",
+      "cedula": "098098",
+      "correo": "098@098",
+      "direccion": "098",
+      "id": 1001,
+      "telefono": "098",
+      "rol": "usuario",
+      "nombres": "08098"
     }
   ]
 }

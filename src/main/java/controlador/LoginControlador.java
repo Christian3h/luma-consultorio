@@ -46,7 +46,6 @@ public class LoginControlador implements ActionListener {
     private void validarLogin() {
         String user = vistaLogin.getNameUser().getText();
         String pass = new String(vistaLogin.getPasswordUser().getPassword());
-        System.out.println(user + " " + pass);
         String rol = personaModel.validarUsuario(user, pass).toLowerCase();
 
         if (rol.equals("odontologo")) {

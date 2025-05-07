@@ -22,10 +22,10 @@ public class CitasPanelControlador {
     private citasPanel vista;
     private CitasJson modeloCita;
     private PersonaJson modeloPersona;
-    private DateTimeFormatter fechaHoraFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private DateTimeFormatter fechaDisplayFormatter = DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy",
-            new Locale("es", "ES"));
     private DateTimeFormatter horaDisplayFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    private static final DateTimeFormatter ISO_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter SPANISH_FORMATTER = DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy HH:mm", new Locale("es"));
+
     private String rol;
 
     public CitasPanelControlador(citasPanel vista, PersonaJson modeloPersona) {
@@ -194,12 +194,16 @@ public class CitasPanelControlador {
                 panelCita.setVisible(false);
             }
 
+            if(!verificarFechaCita(fechaStr)){
+                panelCita.setVisible(false);
+            }
+
             panelCita.add(panelBotones);
 
         } catch (Exception e) {
             e.printStackTrace();
             panelCita.add(new JLabel("Error al mostrar cita"));
-        } 
+        }
 
         panelCita.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, panelCita.getPreferredSize().height));
         return panelCita;
@@ -415,6 +419,35 @@ public class CitasPanelControlador {
         }
 
         mostrarCitas(citasFiltradas);
+    }
+
+    public boolean verificarFechaCita(String fechaCitaStr) {
+        try {
+            LocalDateTime fechaCita;
+
+            // Intenta parsear con el primer formato
+            try {
+                fechaCita = LocalDateTime.parse(fechaCitaStr, ISO_FORMATTER);
+            } catch (DateTimeParseException e1) {
+                // Si falla, intenta con el segundo formato
+                fechaCita = LocalDateTime.parse(fechaCitaStr, SPANISH_FORMATTER);
+            }
+
+            LocalDate hoy = LocalDate.now();
+            LocalDate fechaCitaDate = fechaCita.toLocalDate();
+
+            if (fechaCitaDate.isEqual(hoy)) {
+                return true;
+            } else if (fechaCitaDate.isAfter(hoy)) {
+                return true;
+            } else {
+                LocalDate ayer = hoy.minusDays(1);
+                return false;
+            }
+        } catch (DateTimeParseException e) {
+            System.err.println("Error al parsear la fecha: " + fechaCitaStr + " - " + e.getMessage());
+            return false;
+        }
     }
 
     private LocalDateTime parsearFecha(String fechaStr) {

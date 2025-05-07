@@ -34,8 +34,12 @@ public class MenuControladorOdontologo {
             @Override
             public void mouseClicked(MouseEvent e) {
                 cerrarVentanaActual();
-                InfoOdontologo infoVista = new InfoOdontologo();
-                infoVista.setVisible(true);
+                // Crear la vista del menú
+                menuOdont menuVista = new menuOdont();
+                // Crear el ControladorOdontologo, pasando la vista del menú
+                ControladorOdontologo controladorOdontologo = new ControladorOdontologo(menuVista);
+                // El controlador ahora se encarga de crear y mostrar InfoOdontologo
+                controladorOdontologo.mostrarVistaInfo();
             }
         });
 

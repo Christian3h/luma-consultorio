@@ -20,7 +20,6 @@ public interface personaCrear {
     // Método para guardar (puedes sobrescribirlo según necesidad)
     default void guardarPersona(Object persona) {
         // Implementación básica (sobrescribe este método)
-        System.out.println("Persona creada: " + persona.toString());
         JOptionPane.showMessageDialog(null,
                 "Registro exitoso!\n" + persona.getClass().getSimpleName(),
                 "Éxito", JOptionPane.INFORMATION_MESSAGE);

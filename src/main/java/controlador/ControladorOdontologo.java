@@ -30,7 +30,7 @@ public class ControladorOdontologo implements ActionListener {
     public void citasConsulta() {
             
     }
-
+    
     public void mostrarVistaInfo() {
         String idStr = Sesion.getInstancia().getIdUsuario();
         int id = Integer.parseInt(idStr);

@@ -106,9 +106,9 @@ public class usuarioCrearUsuario extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(60, 63, 65));
 
-        txtPassword.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtPassword.setBackground(new java.awt.Color(242, 242, 242));
         txtPassword.setBorder(null);
+        txtPassword.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(36, 37, 38));
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,12 +121,12 @@ public class usuarioCrearUsuario extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(60, 63, 65));
 
-        btnGuardar.setText("Crear");
         btnGuardar.setBackground(new java.awt.Color(83, 115, 112));
-        btnGuardar.setBorder(null);
-        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(242, 242, 242));
+        btnGuardar.setText("Crear");
+        btnGuardar.setBorder(null);
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnGuardarMouseEntered(evt);
@@ -155,31 +155,31 @@ public class usuarioCrearUsuario extends javax.swing.JFrame {
             }
         });
 
-        txtApellido.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtApellido.setActionCommand("<Not Set>");
         txtApellido.setBackground(new java.awt.Color(242, 242, 242));
         txtApellido.setBorder(null);
+        txtApellido.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        txtIdentificacion.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtIdentificacion.setBackground(new java.awt.Color(242, 242, 242));
         txtIdentificacion.setBorder(null);
+        txtIdentificacion.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtIdentificacion.setForeground(new java.awt.Color(36, 37, 38));
         txtIdentificacion.setMinimumSize(new java.awt.Dimension(15, 30));
         txtIdentificacion.setPreferredSize(new java.awt.Dimension(81, 69));
 
-        txtDireccion.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtDireccion.setBackground(new java.awt.Color(242, 242, 242));
         txtDireccion.setBorder(null);
+        txtDireccion.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtDireccion.setForeground(new java.awt.Color(36, 37, 38));
 
-        txtTelefono.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtTelefono.setBackground(new java.awt.Color(242, 242, 242));
         txtTelefono.setBorder(null);
+        txtTelefono.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtTelefono.setForeground(new java.awt.Color(36, 37, 38));
 
-        txtCorreo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtCorreo.setBackground(new java.awt.Color(242, 242, 242));
         txtCorreo.setBorder(null);
+        txtCorreo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtCorreo.setForeground(new java.awt.Color(36, 37, 38));
 
         jLabel10.setText("Apellidos: ");

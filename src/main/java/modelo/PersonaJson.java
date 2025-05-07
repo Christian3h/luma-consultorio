@@ -115,10 +115,8 @@ public class PersonaJson {
             }
 
             int nuevoId = JsonManager.generarNuevoId("personas");
-            System.out.println(nuevoId);
             datosPersona.put("id", nuevoId); // Aseguramos que el ID esté en los datos
             if (rol.equalsIgnoreCase("paciente")) {
-                System.out.println("Se creo un paciente lo que no deberia pasar si use un usuario");
                 Paciente paciente = new Paciente(
                         datosPersona.getInt("id"),
                         datosPersona.getString("nombres"),
@@ -130,7 +128,6 @@ public class PersonaJson {
                         datosPersona.getString("correo"),
                         rol
                 );
-                System.out.println("Se crea un paciente");
                 guardarPersona(paciente);
                 return true;
             } else if (rol.equalsIgnoreCase("odontologo")) {
@@ -147,7 +144,6 @@ public class PersonaJson {
                         datosPersona.getString("password")
                 );
                 guardarPersona(odontologo);
-                System.out.println("Se creo un odontologo");
                 return true;
             } else if (rol.equalsIgnoreCase("usuario")) {
                 Usuario usuario = new Usuario(
@@ -162,12 +158,9 @@ public class PersonaJson {
                         rol,
                         datosPersona.getString("password")
                 );
-                System.out.println(usuario);
                 guardarPersona(usuario);
-                System.out.println("Se creo un usuario");
                 return true;
             } else {
-                System.out.println("Rol de persona no reconocido: " + rol);
                 return false;
             }
         } catch (Exception e) {
@@ -198,7 +191,6 @@ public class PersonaJson {
         JSONArray personas = database.getJSONArray("personas");
         JSONObject jsonPersona = new JSONObject(new Gson().toJson(persona));
         personas.put(jsonPersona);
-        System.out.println(jsonPersona);
         JsonManager.saveJson(database);
     }
 
@@ -283,7 +275,7 @@ public class PersonaJson {
                 }
             }
         } catch (NumberFormatException e) {
-            System.err.println("Error: El ID proporcionado no es un número válido.");
+           // System.err.println("Error: El ID proporcionado no es un número válido.");
             return null;
         }
         return null;

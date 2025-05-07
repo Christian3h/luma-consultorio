@@ -39,8 +39,6 @@ public class ConsultasControlador implements ActionListener {
     }
 
     private void guardarConsulta() {
-        System.out.println("Botón Finalizar presionado - Inicio del proceso");
-
         String procedimiento = vistaconsulta.getTxtProcedimiento().getText().trim();
         String medicamentos = vistaconsulta.getTxtMedicamentos().getText().trim();
         String valor = vistaconsulta.getTxtValor().getText().trim();
@@ -66,7 +64,6 @@ public class ConsultasControlador implements ActionListener {
         }
 
         boolean resultado = modeloconsulta.guardarConsulta(procedimiento, medicamentos, valor, documentoPaciente, documentoOdontologo);
-        System.out.println("Resultado del guardado: " + resultado);
 
         if (resultado) {
             JOptionPane.showMessageDialog(vistaconsulta, "✅ Consulta guardada exitosamente");
