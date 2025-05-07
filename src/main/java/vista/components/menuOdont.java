@@ -1,5 +1,6 @@
 package vista.components;
 
+import java.awt.Color;
 import javax.swing.JButton;
 import vista.usuario.citasPanel;
 
@@ -15,6 +16,18 @@ public class menuOdont extends javax.swing.JPanel {
         initComponents();
     }
 
+    // Función reutilizable para el evento MouseEntered
+    public void cambiarColorEntrada(JButton boton) {
+        boton.setBackground(new Color(83, 115, 112));
+        boton.setForeground(Color.white);
+    }
+
+    // Función reutilizable para el evento MouseExited
+    public void cambiarColorSalida(JButton boton) {
+        boton.setBackground(new Color(143, 166, 143));
+        boton.setForeground(new Color(242, 242, 242));
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -22,10 +35,13 @@ public class menuOdont extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnSobreOdont = new javax.swing.JButton();
-        btnCerrarSesion = new javax.swing.JButton();
         btnCitas = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(143, 166, 143));
+        jPanel1.setForeground(new java.awt.Color(242, 242, 242));
+        jPanel1.setToolTipText("");
+        jPanel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         jLabel1.setBackground(new java.awt.Color(36, 38, 37));
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
@@ -33,19 +49,60 @@ public class menuOdont extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/path1.png"))); // NOI18N
 
-        btnSobreOdont.setText("Info sobre la cuenta ");
+        btnSobreOdont.setBackground(new java.awt.Color(143, 166, 143));
+        btnSobreOdont.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        btnSobreOdont.setForeground(new java.awt.Color(242, 242, 242));
+        btnSobreOdont.setText("Sobre la cuenta");
+        btnSobreOdont.setBorder(null);
+        btnSobreOdont.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSobreOdontMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSobreOdontMouseExited(evt);
+            }
+        });
         btnSobreOdont.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSobreOdontActionPerformed(evt);
             }
         });
 
-        btnCerrarSesion.setText("Cerrar sesion");
-
+        btnCitas.setBackground(new java.awt.Color(143, 166, 143));
+        btnCitas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        btnCitas.setForeground(new java.awt.Color(242, 242, 242));
         btnCitas.setText("Citas");
+        btnCitas.setBorder(null);
+        btnCitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCitasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCitasMouseExited(evt);
+            }
+        });
         btnCitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCitasActionPerformed(evt);
+            }
+        });
+
+        btnCerrarSesion.setBackground(new java.awt.Color(143, 166, 143));
+        btnCerrarSesion.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(242, 242, 242));
+        btnCerrarSesion.setText("Cerrar sesion");
+        btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseExited(evt);
+            }
+        });
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
             }
         });
 
@@ -53,33 +110,24 @@ public class menuOdont extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(btnSobreOdont, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnCitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnSobreOdont, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(btnSobreOdont, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(btnCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(260, 260, 260)
-                .addComponent(btnCerrarSesion)
-                .addContainerGap())
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSobreOdont, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(btnCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(350, 350, 350)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -101,6 +149,34 @@ public class menuOdont extends javax.swing.JPanel {
     private void btnSobreOdontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSobreOdontActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSobreOdontActionPerformed
+
+    private void btnSobreOdontMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSobreOdontMouseEntered
+        cambiarColorEntrada(btnSobreOdont);
+    }//GEN-LAST:event_btnSobreOdontMouseEntered
+
+    private void btnSobreOdontMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSobreOdontMouseExited
+        cambiarColorSalida(btnSobreOdont);
+    }//GEN-LAST:event_btnSobreOdontMouseExited
+
+    private void btnCitasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCitasMouseEntered
+        cambiarColorEntrada(btnCitas);
+    }//GEN-LAST:event_btnCitasMouseEntered
+
+    private void btnCitasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCitasMouseExited
+        cambiarColorSalida(btnCitas);
+    }//GEN-LAST:event_btnCitasMouseExited
+
+    private void btnCerrarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseEntered
+        cambiarColorEntrada(btnCerrarSesion);
+    }//GEN-LAST:event_btnCerrarSesionMouseEntered
+
+    private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
+        cambiarColorSalida(btnCerrarSesion);
+    }//GEN-LAST:event_btnCerrarSesionMouseExited
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     public JButton getBtnCerrarSesion() {
         return btnCerrarSesion;

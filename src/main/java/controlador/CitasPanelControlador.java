@@ -89,13 +89,18 @@ public class CitasPanelControlador {
         JPanel panelCita = new JPanel();
         panelCita.setLayout(new BoxLayout(panelCita, BoxLayout.Y_AXIS));
         panelCita.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(200, 200, 200)),
+                BorderFactory.createLineBorder(new Color(242, 242, 242)),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        panelCita.setBackground(new Color(240, 248, 255));
+        panelCita.setBackground(new Color(242, 242, 242));
 
         try {
+
+            //83,115,112 color verde
+            //60,63,65 color texto
+            //242,242,242 color texto
             // Obtener la fecha como String (sin parsear)
             String fechaStr = cita.getString("fecha");
+
             // Crear componentes comunes
             JLabel pacienteLabel = new JLabel("👤 Paciente: " + cita.getString("documentoPaciente"));
             JLabel odontologoLabel = new JLabel("🦷 Odontólogo: " + cita.getString("documentoOdontologo"));
@@ -113,17 +118,77 @@ public class CitasPanelControlador {
 
             JButton btnEditar = crearBotonEditar(cita);
             JButton btnEliminar = crearBotonEliminar(cita);
+
+            // ---> Agregar colores a los botones
+            btnEditar.setBackground(new Color(83, 115, 112));
+            btnEditar.setForeground(new Color(242, 242, 242));
+            btnEditar.setFocusPainted(false);
+            btnEditar.setOpaque(true);
+            btnEditar.setBorderPainted(false);
+
+            btnEliminar.setBackground(new Color(83, 115, 112));
+            btnEliminar.setForeground(new Color(242, 242, 242));
+            btnEliminar.setFocusPainted(false);
+            btnEliminar.setOpaque(true);
+            btnEliminar.setBorderPainted(false);
+
+            // Efecto hover para btnEditar
+            btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    btnEditar.setBackground(new Color(100, 145, 140));
+                    btnEditar.setForeground(Color.WHITE);
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    btnEditar.setBackground(new Color(83, 115, 112));
+                    btnEditar.setForeground(new Color(242, 242, 242));
+                }
+            });
+
+            // Efecto hover para btnEliminar
+            btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    btnEliminar.setBackground(new Color(100, 145, 140));
+                    btnEliminar.setForeground(Color.WHITE);
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    btnEliminar.setBackground(new Color(83, 115, 112));
+                    btnEliminar.setForeground(new Color(242, 242, 242));
+                }
+            });
+            // <---
+
             if (idStr == null) {
                 panelBotones.add(btnEditar);
                 panelBotones.add(btnEliminar);
             }
 
-            // obteer id 
+            // obteer id
             if (idStr != null && cedula.equals(documentoEncontrado)) {
                 JButton btnIngresar = new JButton("🏥 Ingresar a consulta");
                 btnIngresar.setFocusPainted(false);
                 btnIngresar.addActionListener(e -> abrirVentanaConsulta(cita));
                 panelBotones.add(btnIngresar);
+
+                // ---> Agregar estilo a btnIngresar
+                btnIngresar.setBackground(new Color(83, 115, 112));
+                btnIngresar.setForeground(new Color(242, 242, 242));
+                btnIngresar.setOpaque(true);
+                btnIngresar.setBorderPainted(false);
+
+                btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        btnIngresar.setBackground(new Color(100, 145, 140));
+                        btnIngresar.setForeground(Color.WHITE);
+                    }
+
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        btnIngresar.setBackground(new Color(83, 115, 112));
+                        btnIngresar.setForeground(new Color(242, 242, 242));
+                    }
+                });
+                // <---
 
             } else if (idStr != null) {
                 panelCita.setVisible(false);
@@ -134,7 +199,7 @@ public class CitasPanelControlador {
         } catch (Exception e) {
             e.printStackTrace();
             panelCita.add(new JLabel("Error al mostrar cita"));
-        }
+        } 
 
         panelCita.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, panelCita.getPreferredSize().height));
         return panelCita;

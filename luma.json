@@ -91,7 +91,7 @@
       "fechaNacimiento": "2025-04-21",
       "cedula": "456",
       "correo": "christian@gmail.com",
-      "direccion": "donde  las putas",
+      "direccion": "no lo se rick",
       "telefono": "317900",
       "rol": "paciente",
       "nombres": "christian"
@@ -109,15 +109,15 @@
       "nombres": "jorge"
     },
     {
-      "apellidos": "1243234",
+      "apellidos": "martinez",
       "password": "123",
       "fechaNacimiento": "2025-04-14",
       "cedula": "1231234",
-      "correo": "123123",
+      "correo": "christian@gmail.com",
       "direccion": "123",
       "id": 7,
       "telefono": "123",
-      "rol": "usuario",
+      "rol": "Usuario",
       "nombres": "123"
     }
   ]

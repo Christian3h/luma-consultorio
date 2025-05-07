@@ -51,10 +51,13 @@ public class EditarCitaFrame extends javax.swing.JFrame {
         txtHora = new javax.swing.JTextField();
         consultarPacientes = new javax.swing.JButton();
         consultarOdontologo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
         setMaximumSize(new java.awt.Dimension(700, 450));
         setMinimumSize(new java.awt.Dimension(700, 450));
+        setResizable(false);
 
         txtPaciente.setText(" ");
 
@@ -93,6 +96,13 @@ public class EditarCitaFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,7 +110,9 @@ public class EditarCitaFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(324, 324, 324)
                 .addComponent(btnGuardar)
-                .addContainerGap(313, Short.MAX_VALUE))
+                .addGap(85, 85, 85)
+                .addComponent(jButton1)
+                .addContainerGap(161, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(198, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,10 +146,15 @@ public class EditarCitaFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(btnGuardar)
-                .addGap(64, 64, 64))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(btnGuardar)
+                        .addGap(64, 64, 64))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(51, 51, 51))))
         );
 
         pack();
@@ -172,6 +189,10 @@ public class EditarCitaFrame extends javax.swing.JFrame {
     private void txtOdontologoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOdontologoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOdontologoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public JButton getBtnGuardar() {
         return btnGuardar;
@@ -226,6 +247,7 @@ public class EditarCitaFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton consultarOdontologo;
     private javax.swing.JButton consultarPacientes;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtDescripcion;
     private com.github.lgooddatepicker.components.DatePicker txtFecha;
