@@ -1,5 +1,20 @@
 package controlador;
 
+/**
+ * Controlador para el menú principal de usuarios
+ * 
+ * Funcionalidades:
+ * - Navegación entre módulos
+ * - Gestión de eventos de menú
+ * - Coordinación entre vistas
+ * 
+ * Componentes asociados:
+ * - menu (vista principal)
+ * - Varias vistas secundarias
+ * 
+ * Modelos utilizados:
+ * - PersonaJson (gestión usuarios)
+ */
 import vista.components.menu;
 import modelo.PersonaJson;
 import java.awt.event.MouseAdapter;

@@ -1,0 +1,66 @@
+MANUAL TECNICO - LUMA CONSULTORIO
+
+1. MODELOS PRINCIPALES
+
+Persona.java
+Clase base para pacientes, odontologos y usuarios
+Campos obligatorios: id, nombres, cedula, rol
+Validaciones: formato cedula, fecha YYYY-MM-DD
+
+Odontologo.java
+Extiende Persona para odontologos
+Maneja credenciales (password)
+Problema: password deberia usar hash
+
+2. CONTROLADORES
+
+LoginControlador.java
+Valida credenciales contra PersonaJson
+Flujo: recibe cedula/password -> valida -> redirige por rol
+Errores: JSONException si archivo corrupto
+
+CitasControlador.java
+Administra citas medicas
+Valida: existencia paciente/odontologo, horarios no conflictivos
+Depende de: PersonaJson y CitasJson
+
+3. PERSISTENCIA
+
+JsonManager.java
+Carga/crea archivos JSON
+Genera IDs autoincrementales
+Problemas comunes: 
+- Archivo corrupto (recrear archivo)
+- Permisos de escritura (verificar)
+
+4. ESTRUCTURA JSON
+
+Ejemplo minimo:
+{
+  "personas": [
+    {
+      "id": 1,
+      "nombres": "Ejemplo",
+      "cedula": "123456789",
+      "rol": "odontologo"
+    }
+  ],
+  "citas": [
+    {
+      "documentoPaciente": "987654321",
+      "documentoOdontologo": "123456789",
+      "fecha": "2025-06-20 14:30"
+    }
+  ]
+}
+
+5. SOLUCION DE PROBLEMAS
+
+Error JSONArray:
+Usar db.has("personas") antes de getJSONArray()
+
+Error ID duplicado:
+Siempre usar JsonManager.generarNuevoId()
+
+Error campo faltante:
+Validar con persona.has("cedula")

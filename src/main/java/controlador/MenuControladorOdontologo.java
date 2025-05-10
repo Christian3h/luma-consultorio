@@ -1,5 +1,20 @@
 package controlador;
 
+/**
+ * Controlador para el menú de odontólogos
+ * 
+ * Funcionalidades:
+ * - Navegación específica para odontólogos
+ * - Acceso a información profesional
+ * - Gestión de consultas
+ * 
+ * Componentes asociados:
+ * - menuOdont (vista principal)
+ * - InfoOdontologo (formulario información)
+ * 
+ * Modelos utilizados:
+ * - PersonaJson (gestión datos)
+ */
 import vista.components.menuOdont;
 import modelo.PersonaJson;
 import java.awt.event.MouseAdapter;

@@ -1,5 +1,19 @@
 package controlador;
 
+/**
+ * Controlador específico para gestión de odontólogos
+ * 
+ * Funcionalidades:
+ * - Actualización de información de odontólogos
+ * - Eliminación de registros
+ * - Validación de datos
+ * 
+ * Componentes asociados:
+ * - InfoOdontologo (formulario de información)
+ * 
+ * Modelos utilizados:
+ * - PersonaJson (persistencia)
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;

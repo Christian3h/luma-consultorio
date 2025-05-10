@@ -1,5 +1,21 @@
 package controlador;
 
+/**
+ * Controlador para el panel de visualización de citas
+ * 
+ * Funcionalidades:
+ * - Mostrar listado de citas
+ * - Permitir filtrado por fecha/texto
+ * - Habilitar acciones (editar/eliminar/ingresar)
+ * 
+ * Componentes asociados:
+ * - citasPanel (vista principal)
+ * - EditarCitaFrame (formulario edición)
+ * 
+ * Modelos utilizados:
+ * - CitasJson (persistencia)
+ * - PersonaJson (validación)
+ */
 import java.awt.Color;
 import modelo.CitasJson;
 import modelo.PersonaJson;

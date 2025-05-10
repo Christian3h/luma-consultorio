@@ -7,19 +7,39 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import util.JsonManager;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
+ * Clase para gestionar las personas dentro del sistema. Esta clase permite
+ * realizar operaciones CRUD sobre las personas, tales como: validación de
+ * usuario, creación de nuevos usuarios, consulta de información de personas,
+ * verificación de existencia de correos, identificaciones, roles, y más.
+ *
+ * Además, gestiona la carga y almacenamiento de los datos a través de un
+ * archivo JSON utilizando la clase {@link JsonManager}.
+ *
  * @author christian
  */
 public class PersonaJson {
 
+    // Base de datos que contiene las personas en formato JSON
     private JSONObject database;
 
+    /**
+     * Constructor que carga o crea la base de datos de personas desde un
+     * archivo JSON.
+     */
     public PersonaJson() {
         this.database = JsonManager.loadOrCreateJson();
     }
 
+    /**
+     * Método que valida si un usuario existe en el sistema y su rol asociado,
+     * comparando la identificación y la contraseña.
+     *
+     * @param identificacion Identificación (cédula) del usuario
+     * @param password Contraseña del usuario
+     * @return Rol del usuario si se valida correctamente, "false" si no existe.
+     */
     public String validarUsuario(String identificacion, String password) {
         JSONArray personas = database.getJSONArray("personas");
 
@@ -34,6 +54,14 @@ public class PersonaJson {
         return "false";
     }
 
+    /**
+     * Método que obtiene el ID de un usuario en base a su identificación y
+     * contraseña.
+     *
+     * @param identificacion Identificación (cédula) del usuario
+     * @param password Contraseña del usuario
+     * @return ID del usuario si se encuentra, "false" si no existe.
+     */
     public String obtenerId(String identificacion, String password) {
         JSONArray personas = database.getJSONArray("personas");
 
@@ -48,6 +76,12 @@ public class PersonaJson {
         return "false";
     }
 
+    /**
+     * Verifica si ya existe un correo en la base de datos de personas.
+     *
+     * @param correo Correo electrónico a verificar
+     * @return true si el correo ya está registrado, false en caso contrario.
+     */
     public boolean existeCorreo(String correo) {
         JSONArray personas = database.getJSONArray("personas");
         for (int i = 0; i < personas.length(); i++) {
@@ -59,6 +93,12 @@ public class PersonaJson {
         return false;
     }
 
+    /**
+     * Verifica si un paciente existe en el sistema mediante su identificación.
+     *
+     * @param identificacion Identificación del paciente
+     * @return true si el paciente existe, false en caso contrario.
+     */
     public boolean existePaciente(String identificacion) {
         JSONArray personas = database.getJSONArray("personas");
         for (int i = 0; i < personas.length(); i++) {
@@ -70,6 +110,13 @@ public class PersonaJson {
         return false;
     }
 
+    /**
+     * Verifica si un odontólogo existe en el sistema mediante su
+     * identificación.
+     *
+     * @param identificacion Identificación del odontólogo
+     * @return true si el odontólogo existe, false en caso contrario.
+     */
     public boolean existeOdontologo(String identificacion) {
         JSONArray personas = database.getJSONArray("personas");
         for (int i = 0; i < personas.length(); i++) {
@@ -81,6 +128,12 @@ public class PersonaJson {
         return false;
     }
 
+    /**
+     * Verifica si una identificación ya está registrada en el sistema.
+     *
+     * @param identificacion Identificación a verificar
+     * @return true si la identificación ya existe, false en caso contrario.
+     */
     public boolean existeIdentificacion(String identificacion) {
         JSONArray personas = database.getJSONArray("personas");
         for (int i = 0; i < personas.length(); i++) {
@@ -92,14 +145,29 @@ public class PersonaJson {
         return false;
     }
 
+    /**
+     * Agrega un nuevo usuario a la base de datos de personas.
+     *
+     * @param nuevoUsuario Objeto JSON que contiene los datos del nuevo usuario
+     */
     public void agregarUsuario(JSONObject nuevoUsuario) {
         JSONArray usuarios = database.getJSONArray("usuarios");
         usuarios.put(nuevoUsuario);
         JsonManager.saveJson(database);
     }
 
+    /**
+     * Crea una nueva persona en el sistema según el rol especificado. Realiza
+     * validaciones previas para evitar duplicados de correo y cédula.
+     *
+     * @param datosPersona Datos de la nueva persona en formato JSON
+     * @param rol Rol de la persona ("paciente", "odontologo", "usuario")
+     * @return true si la persona fue creada correctamente, false en caso de
+     * error.
+     */
     public boolean crearPersona(JSONObject datosPersona, String rol) {
         try {
+            // Verificaciones previas
             if (existeCorreo(datosPersona.getString("correo"))) {
                 JOptionPane.showMessageDialog(null,
                         "El correo electrónico ya está registrado.",
@@ -114,8 +182,11 @@ public class PersonaJson {
                 return false;
             }
 
+            // Generación del nuevo ID
             int nuevoId = JsonManager.generarNuevoId("personas");
             datosPersona.put("id", nuevoId); // Aseguramos que el ID esté en los datos
+
+            // Creación según el rol
             if (rol.equalsIgnoreCase("paciente")) {
                 Paciente paciente = new Paciente(
                         datosPersona.getInt("id"),
@@ -171,6 +242,12 @@ public class PersonaJson {
         }
     }
 
+    /**
+     * Lista todas las personas de un rol específico.
+     *
+     * @param rol Rol de las personas a listar
+     * @return Lista de personas que coinciden con el rol especificado
+     */
     public List<Persona> listarPorRol(String rol) {
         List<Persona> personasFiltradas = new ArrayList<>();
         JSONArray personasArray = database.getJSONArray("personas");
@@ -186,12 +263,94 @@ public class PersonaJson {
         return personasFiltradas;
     }
 
-    // se comento por que guardaba los objetos de manera desorganizada entonces no me servia
     private void guardarPersona(Object persona) {
         JSONArray personas = database.getJSONArray("personas");
         JSONObject jsonPersona = new JSONObject(new Gson().toJson(persona));
         personas.put(jsonPersona);
         JsonManager.saveJson(database);
+    }
+
+    public JSONObject consultarPersonaPorId(int id) {
+        JSONArray personas = database.getJSONArray("personas");
+
+        for (int i = 0; i < personas.length(); i++) {
+            JSONObject persona = personas.getJSONObject(i);
+            if (persona.getInt("id") == id) {
+                return persona;
+            }
+        }
+        return null;
+    }
+
+    public String consultarDocumentoPorId(String id) {
+        try {
+            int idNum = Integer.parseInt(id);
+            JSONArray personas = database.getJSONArray("personas");
+            for (int i = 0; i < personas.length(); i++) {
+                JSONObject persona = personas.getJSONObject(i);
+                if (persona.getInt("id") == idNum) {
+                    return persona.getString("cedula");
+                }
+            }
+        } catch (NumberFormatException e) {
+            // System.err.println("Error: El ID proporcionado no es un número válido.");
+            return null;
+        }
+        return null;
+    }
+
+    public String obtenerNombrePorDocumento(String documento) {
+        JSONArray personas = database.getJSONArray("personas");
+        for (int i = 0; i < personas.length(); i++) {
+            JSONObject persona = personas.getJSONObject(i);
+            if (persona.has("cedula") && persona.getString("cedula").equals(documento)) {
+                return persona.getString("nombres") + " " + persona.getString("apellidos");
+            }
+
+        }
+
+        return null; // Retorna null si no se encuentra la persona
+
+    }
+
+    public void actualizarPersona(JSONObject personaActualizada) {
+        JSONArray personas = database.getJSONArray("personas");
+        for (int i = 0; i < personas.length(); i++) {
+            JSONObject persona = personas.getJSONObject(i);
+            if (persona.getString("cedula").equals(personaActualizada.getString("cedula"))) {
+                personas.put(i, personaActualizada);
+                break;
+            }
+        }
+        JsonManager.saveJson(database);
+    }
+
+    public boolean eliminarPersona(int id) {
+        JSONArray personas = database.getJSONArray("personas");
+        for (int i = 0; i < personas.length(); i++) {
+            JSONObject persona = personas.getJSONObject(i);
+            if (persona.getInt("id") == id) {
+                personas.remove(i);
+                JsonManager.saveJson(database);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean actualizarPersona(int id, JSONObject nuevosDatos) {
+        JSONArray personas = database.getJSONArray("personas");
+        for (int i = 0; i < personas.length(); i++) {
+            JSONObject persona = personas.getJSONObject(i);
+            if (persona.getInt("id") == id) {
+                nuevosDatos.put("id", persona.getInt("id"));
+                nuevosDatos.put("rol", persona.getString("rol"));
+                personas.put(i, nuevosDatos);
+                JsonManager.saveJson(database);
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean existePacienteC(String identificacion) {
@@ -224,75 +383,5 @@ public class PersonaJson {
         return false;
     }
 
-    public JSONObject consultarPersonaPorId(int id) {
-        JSONArray personas = database.getJSONArray("personas");
-
-        for (int i = 0; i < personas.length(); i++) {
-            JSONObject persona = personas.getJSONObject(i);
-            if (persona.getInt("id") == id) {
-                return persona;
-            }
-        }
-        return null;
-    }
-
-    public boolean eliminarPersona(int id) {
-        JSONArray personas = database.getJSONArray("personas");
-        for (int i = 0; i < personas.length(); i++) {
-            JSONObject persona = personas.getJSONObject(i);
-            if (persona.getInt("id") == id) {
-                personas.remove(i);
-                JsonManager.saveJson(database);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean actualizarPersona(int id, JSONObject nuevosDatos) {
-        JSONArray personas = database.getJSONArray("personas");
-        for (int i = 0; i < personas.length(); i++) {
-            JSONObject persona = personas.getJSONObject(i);
-            if (persona.getInt("id") == id) {
-                nuevosDatos.put("id", persona.getInt("id"));
-                nuevosDatos.put("rol", persona.getString("rol"));
-                personas.put(i, nuevosDatos);
-                JsonManager.saveJson(database);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public String consultarDocumentoPorId(String id) {
-        try {
-            int idNum = Integer.parseInt(id);
-            JSONArray personas = database.getJSONArray("personas");
-            for (int i = 0; i < personas.length(); i++) {
-                JSONObject persona = personas.getJSONObject(i);
-                if (persona.getInt("id") == idNum) {
-                    return persona.getString("cedula");
-                }
-            }
-        } catch (NumberFormatException e) {
-           // System.err.println("Error: El ID proporcionado no es un número válido.");
-            return null;
-        }
-        return null;
-    }
-
-    public String obtenerNombrePorDocumento(String documento) {
-        JSONArray personas = database.getJSONArray("personas");
-        for (int i = 0; i < personas.length(); i++) {
-            JSONObject persona = personas.getJSONObject(i);
-            if (persona.has("cedula") && persona.getString("cedula").equals(documento)) {
-                return persona.getString("nombres") + " " + persona.getString("apellidos");
-            }
-
-        }
-
-        return null; // Retorna null si no se encuentra la persona
-
-    }
-
+    // Método privado para guardar una persona genérica en la base de datos
 }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vista;
 
 import java.awt.BorderLayout;
@@ -12,20 +8,54 @@ import javax.swing.JTextField;
 import vista.components.menu;
 
 /**
+ * Vista principal para el inicio de sesión en el sistema LUMA
  *
- * @author christian
+ * Funcionalidades:
+ * - Autenticación de usuarios (odontólogos, pacientes, administradores)
+ * - Interfaz gráfica para ingreso de credenciales
+ * - Manejo de eventos de ventana (arrastrar, cerrar)
+ * - Validación básica de campos
+ *
+ * Componentes principales:
+ * - Campos para documento y contraseña
+ * - Botón de inicio de sesión
+ * - Panel de cierre y movimiento de ventana
+ *
+ * Relaciones:
+ * - Controlador: LoginControlador
+ * - Modelo: PersonaJson
+ * - Otras vistas: menu (se muestra después del login)
+ *
+ * Diseño:
+ * - Patrón MVC (Vista)
+ * - Interfaz personalizada sin decoraciones del sistema
+ *
+ * Autor: christian
  */
 public class login extends javax.swing.JFrame {
 
+    // Coordenadas para el arrastre de la ventana
     int xMouse, yMouse;
+    
+    // Referencia al menú principal que se mostrará después del login
     private menu vistaMenu;
     
+    /**
+     * Constructor de la ventana de login
+     * - Inicializa los componentes visuales
+     * - Crea y añade el menú principal (oculto inicialmente)
+     * - Configura la ventana sin decoraciones del sistema
+     */
     public login() {
         initComponents();
         vistaMenu = new menu(); // Inicializa el panel del menú
         this.add(vistaMenu, BorderLayout.WEST);
     }
 
+    /**
+     * Obtiene la referencia al menú principal
+     * @return Objeto menu que contiene el menú principal
+     */
     public menu getMenu() {
         return vistaMenu;
     }
@@ -289,51 +319,84 @@ public class login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento al presionar el panel de movimiento
+     * @param evt Evento del mouse que contiene las coordenadas
+     */
     private void panelMoverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMoverMousePressed
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_panelMoverMousePressed
 
+    /**
+     * Evento al arrastrar la ventana
+     * @param evt Evento del mouse que contiene las coordenadas de pantalla
+     */
     private void panelMoverMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMoverMouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_panelMoverMouseDragged
 
+    /**
+     * Evento al hacer click en el botón de cerrar
+     * @param evt Evento del mouse
+     */
     private void labelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarMouseClicked
         System.exit(0);
     }//GEN-LAST:event_labelCerrarMouseClicked
 
+    /**
+     * Evento al entrar el mouse en el botón de cerrar (efecto hover)
+     * @param evt Evento del mouse
+     */
     private void labelCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarMouseEntered
-
         panelCerrar.setBackground(Color.red);
         labelCerrar.setForeground(Color.white);
-
     }//GEN-LAST:event_labelCerrarMouseEntered
 
+    /**
+     * Evento al salir el mouse del botón de cerrar (fin efecto hover)
+     * @param evt Evento del mouse
+     */
     private void labelCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarMouseExited
         panelCerrar.setBackground(new java.awt.Color(83, 115, 112));
         labelCerrar.setForeground(new java.awt.Color(36, 37, 38));
     }//GEN-LAST:event_labelCerrarMouseExited
 
+    /**
+     * Evento al entrar el mouse en el botón de inicio de sesión (efecto hover)
+     * @param evt Evento del mouse
+     */
     private void buttonUserMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonUserMouseEntered
-
         buttonUser.setBackground(new java.awt.Color(70, 110, 112));
         buttonUser.setForeground(Color.white);
     }//GEN-LAST:event_buttonUserMouseEntered
 
+    /**
+     * Evento al hacer click en el botón de inicio de sesión
+     * @param evt Evento de acción
+     */
     private void buttonUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUserActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonUserActionPerformed
 
+    /**
+     * Evento al salir el mouse del botón de inicio de sesión (fin efecto hover)
+     * @param evt Evento del mouse
+     */
     private void buttonUserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonUserMouseExited
-
         buttonUser.setBackground(new java.awt.Color(83, 115, 112));
         buttonUser.setForeground(new java.awt.Color(242, 242, 242));
     }//GEN-LAST:event_buttonUserMouseExited
 
+    /**
+     * Evento al presionar el campo de nombre de usuario
+     * - Limpia el texto de placeholder si es necesario
+     * - Restaura el placeholder del campo de contraseña si está vacío
+     * @param evt Evento del mouse
+     */
     private void nameUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameUserMousePressed
-
         if (nameUser.getText().equals("Ingrese su documento")) {
             nameUser.setText("");
             nameUser.setForeground(new java.awt.Color(36, 37, 38));
@@ -344,8 +407,13 @@ public class login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nameUserMousePressed
 
+    /**
+     * Evento al presionar el campo de contraseña
+     * - Limpia el texto de placeholder si es necesario
+     * - Restaura el placeholder del campo de usuario si está vacío
+     * @param evt Evento del mouse
+     */
     private void passwordUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordUserMousePressed
-  
         if (String.valueOf(passwordUser.getPassword()).equals("*****")) {
             passwordUser.setText("");
             passwordUser.setForeground(new java.awt.Color(36, 37, 38));

@@ -21,16 +21,7 @@ public class Paciente extends Persona {
         super(id, nombres, apellidos, cedula, fechaNacimiento, direccion, telefono, correo, rol);
         //this.historialMedico = historialMedico;
     }
-
-    // Getter y Setter para historialMedico
-//    public String getHistorialMedico() {
-//        return historialMedico;
-//    }
-
-//    public void setHistorialMedico(String historialMedico) {
-//        this.historialMedico = historialMedico;
-//    }
-
+    
     // (Opcional) Sobrescribir toString() para mostrar información del paciente
     @Override
     public String toString() {

@@ -1,5 +1,21 @@
 package controlador;
 
+/**
+ * Controlador para la gestión de citas médicas
+ * 
+ * Responsabilidades:
+ * - Validar y crear nuevas citas
+ * - Verificar disponibilidad de horarios
+ * - Coordinar entre paciente y odontólogo
+ * 
+ * Componentes asociados:
+ * - citasCrear (formulario de creación)
+ * 
+ * Modelos utilizados:
+ * - Citas (modelo de datos)
+ * - CitasJson (persistencia)
+ * - PersonaJson (validación)
+ */
 import modelo.Citas;
 import modelo.CitasJson;
 import modelo.PersonaJson;

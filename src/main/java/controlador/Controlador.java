@@ -1,5 +1,20 @@
 package controlador;
 
+/**
+ * Controlador principal que coordina las diferentes funcionalidades
+ * 
+ * Responsabilidades:
+ * - Creación de pacientes, usuarios y odontólogos
+ * - Gestión de citas
+ * - Coordinación entre vistas y modelos
+ * 
+ * Componentes asociados:
+ * - Varias vistas de creación/gestión
+ * 
+ * Modelos utilizados:
+ * - PersonaJson (persistencia)
+ * - Varios modelos específicos
+ */
 import com.google.gson.Gson;
 import javax.swing.*;
 import java.awt.event.*;

@@ -1,5 +1,22 @@
 package controlador;
 
+/**
+ * Controlador para la gestión CRUD de personas (pacientes, odontólogos, usuarios)
+ * 
+ * Funcionalidades principales:
+ * - Listar personas por rol
+ * - Filtrar y buscar personas
+ * - Editar y eliminar registros
+ * - Validación de datos
+ * 
+ * Componentes asociados:
+ * - JTable para mostrar datos
+ * - JTextField para búsqueda
+ * - JButton para acciones
+ * 
+ * Modelos utilizados:
+ * - AdministrarPersonaJson (persistencia)
+ */
 import modelo.AdministrarPersonaJson;
 import org.json.JSONObject;
 import org.json.JSONArray;

@@ -1,5 +1,19 @@
 package controlador;
 
+/**
+ * Controlador para el proceso de autenticación
+ * 
+ * Responsabilidades:
+ * - Validar credenciales de usuario
+ * - Redirigir según rol (paciente/odontólogo/usuario)
+ * - Iniciar sesión
+ * 
+ * Componentes asociados:
+ * - login (formulario de autenticación)
+ * 
+ * Modelos utilizados:
+ * - PersonaJson (validación credenciales)
+ */
 import javax.swing.*;
 import java.awt.event.*;
 import vista.login;

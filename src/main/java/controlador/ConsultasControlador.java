@@ -1,5 +1,20 @@
 package controlador;
 
+/**
+ * Controlador para la gestión de consultas odontológicas
+ * 
+ * Responsabilidades:
+ * - Registrar procedimientos realizados
+ * - Gestionar medicamentos recetados
+ * - Guardar información de la consulta
+ * 
+ * Componentes asociados:
+ * - Consulta (formulario de consulta)
+ * 
+ * Modelos utilizados:
+ * - ConsultasJson (persistencia)
+ * - PersonaJson (validación)
+ */
 import modelo.PersonaJson;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
